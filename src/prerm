@@ -1,0 +1,4 @@
+#!/bin/sh -e
+# postinst script for lvrt-schroot
+
+systemctl stop labview.service

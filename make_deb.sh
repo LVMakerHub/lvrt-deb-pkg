@@ -9,7 +9,7 @@ fi
 
 PKG_NAME=lvrt-schroot
 PKG_VER=14.1
-PKG_REV=1
+PKG_REV=2
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 
 SYSTEMD_SERVICE_DIR=$PKG_DIR/etc/systemd/system/multi-user.target.wants
