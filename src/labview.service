@@ -1,0 +1,16 @@
+[Unit]
+Description=LabVIEW chroot run-time daemon
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/run/lvrt.pid
+ExecStartPre=/usr/bin/schroot --begin-session --session-name=lv -c labview
+ExecStart=/usr/bin/schroot --run-session -c lv -- /etc/init.d/nilvrt start
+ExecStop=/usr/bin/schroot --run-session -c lv -- /etc/init.d/nilvrt stop
+ExecStopPost=/usr/bin/schroot --end-session -c lv
+
+[Install]
+WantedBy=multi-user.target
+
+

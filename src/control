@@ -1,0 +1,11 @@
+Package: lvrt-schroot
+Version: 14.1-1
+Section: base
+Priority: optional
+Architecture: armhf
+Depends: schroot
+Maintainer: Ken Sharp <ken.sharp@ni.com>
+Description: LabVIEW run-time schroot
+ A schroot environment to allow the softfp LabVIEW run-time to run on a hardfp
+ Debian distro.
+
