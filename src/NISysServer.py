@@ -18,7 +18,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			# Service Locator for System Web Server; redirect to same port
 			s.send_response(200)
 			s.send_header("Content-type", "text/html")
-			#s.send_header("Pragma", "no-cache")
 			s.end_headers()
 			s.wfile.write("Mapping=" + str(PORT_NUMBER) + "\r\n")
 		elif ppath.path == '/login' and 'username' in query:
@@ -30,7 +29,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			# logout call
 			s.send_response(200)
 			s.send_header("Content-type", "text/html")
-			#s.send_header("Cache-control", "no-cache=\"Set-Cookie\"")
 			s.send_header("Set-Cookie", "_appwebSessionId_=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT")
 			s.end_headers()
 			s.wfile.write("User admin logged out.")
@@ -44,7 +42,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			# actual login, happens after login challenge
 			s.send_response(200)
 			s.send_header("Content-type", "text/xml")
-			#s.send_header("Cache-control", "no-cache=\"Set-Cookie\"")
 			s.send_header("Set-Cookie", "_appwebSessionId_=Zoz4eDPybs#qoUb9za2m0Q!!; Path=/")
 			s.end_headers()
 			loginxmldata = "<?xml version='1.0' encoding='UTF-8'?><Permissions><Permission><Name>GetDB</Name><BuiltIn>false</BuiltIn><ID>0</ID></Permission><Permission><Name>SetDB</Name><BuiltIn>false</BuiltIn><ID>1</ID></Permission><Permission><Name>FSRead</Name><BuiltIn>false</BuiltIn><ID>2</ID></Permission><Permission><Name>FSWrite</Name><BuiltIn>false</BuiltIn><ID>3</ID></Permission><Permission><Name>SSLAdminModifyCerts</Name><BuiltIn>false</BuiltIn><ID>4</ID></Permission><Permission><Name>SSLAdminReadCerts</Name><BuiltIn>false</BuiltIn><ID>5</ID></Permission><Permission><Name>NIWebCer</Name><BuiltIn>false</BuiltIn><ID>6</ID></Permission><Permission><Name>GetWSAPIKey</Name><BuiltIn>false</BuiltIn><ID>7</ID></Permission><Permission><Name>ManageWS</Name><BuiltIn>false</BuiltIn><ID>8</ID></Permission><Permission><Name>SetWSAPIKey</Name><BuiltIn>false</BuiltIn><ID>9</ID></Permission><Permission><Name>WIFConfigureAppServer</Name><BuiltIn>false</BuiltIn><ID>10</ID></Permission><Permission><Name>GetSystemConfiguration</Name><BuiltIn>false</BuiltIn><ID>11</ID></Permission><Permission><Name>SetSystemConfiguration</Name><BuiltIn>false</BuiltIn><ID>12</ID></Permission><Permission><Name>FirmwareUpdate</Name><BuiltIn>false</BuiltIn><ID>13</ID></Permission><Permission><Name>Reboot</Name><BuiltIn>false</BuiltIn><ID>14</ID></Permission><Permission><Name>RemoteShell</Name><BuiltIn>false</BuiltIn><ID>15</ID></Permission><Permission><Name>SetRTLockPassword</Name><BuiltIn>false</BuiltIn><ID>16</ID></Permission><Permission><Name>ViewConsoleOutput</Name><BuiltIn>false</BuiltIn><ID>17</ID></Permission><Permission><Name>GetSyslog</Name><BuiltIn>false</BuiltIn><ID>18</ID></Permission><Permission><Name>ManageExtensions</Name><BuiltIn>false</BuiltIn><ID>19</ID></Permission></Permissions>"
