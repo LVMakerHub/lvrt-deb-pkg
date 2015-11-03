@@ -3,21 +3,31 @@
 set -e
 
 if [ $# -ne 1 ]; then
-  echo "Invalid argument"
+  echo "Usage: $0 IMAGE_TAR_FILE"
   exit 1
 fi
 
 PKG_NAME=lvrt-schroot
 PKG_VER=14.1
-PKG_REV=2
+PKG_REV=3
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 
 SYSTEMD_SERVICE_DIR=$PKG_DIR/etc/systemd/system/multi-user.target.wants
 CHROOT_DIR=$PKG_DIR/srv/chroot/labview
 
+# Add schroot session creation script
+mkdir -p $PKG_DIR/usr/sbin
+cp src/schroot-lv-start.sh $PKG_DIR/usr/sbin/.
+
 # Add systemd service file to start schroot
 mkdir -p $SYSTEMD_SERVICE_DIR
 cp src/labview.service $SYSTEMD_SERVICE_DIR/.
+
+# Add systemd service file to start emulated sys web server
+cp src/nisysserver.service $SYSTEMD_SERVICE_DIR/.
+
+# Add NI Sys Web Server emulator script
+cp src/NISysServer.py $PKG_DIR/usr/sbin/.
 
 # Create schroot configuration
 cp -r src/schroot $PKG_DIR/etc/
