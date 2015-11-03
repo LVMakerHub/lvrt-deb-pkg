@@ -1,0 +1,11 @@
+[Unit]
+Description=NI System Web Server (emulated)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/NISysServer.py
+
+[Install]
+WantedBy=multi-user.target
+
