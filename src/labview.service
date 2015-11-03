@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=forking
 PIDFile=/run/lvrt.pid
-ExecStartPre=/usr/bin/schroot --begin-session --session-name=lv -c labview
+ExecStartPre=/usr/sbin/schroot-lv-start.sh
 ExecStart=/usr/bin/schroot --run-session -c lv -- /etc/init.d/nilvrt start
 ExecStop=/usr/bin/schroot --run-session -c lv -- /etc/init.d/nilvrt stop
 ExecStopPost=/usr/bin/schroot --end-session -c lv
