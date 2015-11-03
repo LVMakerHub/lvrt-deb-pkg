@@ -5,6 +5,7 @@
 # reboot the target from the LabVIEW project.
 
 import BaseHTTPServer
+from SocketServer import ThreadingMixIn
 import urlparse
 
 HOST_NAME = ''
@@ -75,11 +76,14 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 		else:
 			s.send_error(404)
 
+class ThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
+	""" Handle requests in a separate thread. """
+
 if __name__ == '__main__':
-    server_class = BaseHTTPServer.HTTPServer
-    httpd = server_class((HOST_NAME, PORT_NUMBER), MyHandler)
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    httpd.server_close()
+	httpd = ThreadedHTTPServer((HOST_NAME, PORT_NUMBER), MyHandler)
+	try:
+		print "Starting NISysServer..."
+		httpd.serve_forever()
+	except KeyboardInterrupt:
+		pass
+	httpd.server_close()
