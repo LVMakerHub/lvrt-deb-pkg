@@ -2,4 +2,5 @@
 # postinst script for lvrt-schroot
 
 systemctl daemon-reload
+systemctl start nisysserver.service
 systemctl start labview.service

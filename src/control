@@ -1,9 +1,9 @@
 Package: lvrt-schroot
-Version: 14.1-2
+Version: 14.1-3
 Section: base
 Priority: optional
 Architecture: armhf
-Depends: schroot
+Depends: schroot, python
 Maintainer: Ken Sharp <ken.sharp@ni.com>
 Description: LabVIEW run-time schroot
  A schroot environment to allow the softfp LabVIEW run-time to run on a hardfp

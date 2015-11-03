@@ -1,5 +1,5 @@
 #!/bin/sh -e
 # postinst script for lvrt-schroot
 
-#TODO: If LV service is already running, stop it
-#systemctl stop labview.service
+systemctl stop labview.service
+systemctl stop nisysserver.service
