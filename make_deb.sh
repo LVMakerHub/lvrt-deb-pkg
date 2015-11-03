@@ -33,14 +33,14 @@ tar xjf $1 -C $CHROOT_DIR
 mkdir $CHROOT_DIR/root
 rm -r $CHROOT_DIR/home/root
 
-# Create control file
+# Create control file and maintainer scripts
 mkdir $PKG_DIR/DEBIAN
 cp src/control $PKG_DIR/DEBIAN/.
+cp src/post* $PKG_DIR/DEBIAN/.
+cp src/pre* $PKG_DIR/DEBIAN/.
 
 # Create the package
 dpkg-deb --build $PKG_DIR
 
 #cleanup
 sudo rm -rf $PKG_DIR
-
-
