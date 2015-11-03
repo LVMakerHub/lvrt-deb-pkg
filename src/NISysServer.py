@@ -7,7 +7,9 @@
 import BaseHTTPServer
 from SocketServer import ThreadingMixIn
 import urlparse
+import os
 import socket
+import threading
 
 HOST_NAME = ''
 PORT_NUMBER = 3580
@@ -26,6 +28,10 @@ def getIP():
 			# if all else fails, fall back to the hostname
 			retVal = socket.getfqdn()
 	return retVal
+
+def restartLV():
+	print "Restarting LabVIEW now..."
+	os.system("/bin/systemctl restart labview.service")
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 	def do_GET(s):
@@ -84,12 +90,11 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			s.send_header("Content-type", "text/plain")
 			s.end_headers()
 			s.wfile.write("Rebooting in 0 seconds")
-			print "Restarting LabVIEW now..."
-			os.system("/bin/systemctl restart labview.service")
-			# make sure to send the response and close the connection before reboot happens
-			#s.wfile.flush()
-			#s.wfile.close()
-			#os.system("/sbin/reboot")
+			# spawn a daemon thread to do the reboot so the
+			# HTTP Handler can send its response immediately
+			t = threading.Thread(target=restartLV)
+			t.setDaemon(True)
+			t.start()
 		elif ppath.path == '/nisysapi/server':
 			# handle a request for system information
 			# there can be many more requests to sysapi server
