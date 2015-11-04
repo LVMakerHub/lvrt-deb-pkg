@@ -1,5 +1,21 @@
-#!/bin/sh -e
+#!/bin/sh
 # postinst script for lvrt-schroot
 
-systemctl stop labview.service
-systemctl stop nisysserver.service
+# make sure we're using systemd
+foo=`which systemctl`
+if [ $? -ne 0 ]; then
+	echo "Systemd must be installed"
+	exit 1
+fi
+
+# check to make sure the services are installed
+# if so, then stop them
+foo=`systemctl | grep labview`
+if [ $? -eq 0 ]; then
+	systemctl stop labview.service
+fi
+
+foo=`systemctl | grep nisysserver`
+if [ $? -eq 0 ]; then
+	systemctl stop nisysserver.service
+fi
