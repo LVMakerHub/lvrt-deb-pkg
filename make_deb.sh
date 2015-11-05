@@ -37,7 +37,11 @@ sudo chown -R root:root $PKG_DIR/*
 
 # Create chroot dir
 mkdir -p $CHROOT_DIR
-tar xjf $1 -C $CHROOT_DIR
+if [[ $1 == *tar.bz2 ]]; then
+	tar xjf $1 -C $CHROOT_DIR
+elif [[ $1 == *tar.gz ]]; then
+	tar xzf $1 -C $CHROOT_DIR
+fi
 
 # Do a little customization to the chroot
 mkdir $CHROOT_DIR/root
