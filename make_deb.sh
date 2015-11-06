@@ -11,6 +11,7 @@ PKG_NAME=lvrt-schroot
 PKG_VER=14.1
 PKG_REV=4
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
+REPO_DIR=debian
 
 SYSTEMD_SERVICE_DIR=$PKG_DIR/etc/systemd/system/multi-user.target.wants
 CHROOT_DIR=$PKG_DIR/srv/chroot/labview
@@ -55,6 +56,14 @@ cp src/pre* $PKG_DIR/DEBIAN/.
 
 # Create the package
 dpkg-deb --build $PKG_DIR
+
+# Create the repo
+mkdir -p $REPO_DIR/binary
+cp $PKG_DIR.deb $REPO_DIR/binary/.
+cd $REPO_DIR
+dpkg-scanpackages binary /dev/null > binary/Packages
+cd binary
+gzip Packages
 
 #cleanup
 sudo rm -rf $PKG_DIR
