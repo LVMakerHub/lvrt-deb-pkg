@@ -2,3 +2,9 @@
 # postinst script for lvrt-schroot
 
 systemctl daemon-reload
+
+CHROOTPATH=/srv/chroot/labview
+LINXPATH=$CHROOTPATH/usr/lib/liblinxdevice.so
+if [ -e $LINXPATH ]; then
+	rm $LINXPATH
+fi

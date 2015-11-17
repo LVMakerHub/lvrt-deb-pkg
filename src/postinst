@@ -4,3 +4,28 @@
 systemctl daemon-reload
 systemctl start nisysserver.service
 systemctl start labview.service
+
+# Check for the existence if liblinxdevice
+# and add a symlink to the appropriate version
+CHROOTPATH=/srv/chroot/labview
+RPI2LINX=liblinxdevice_rpi2.so
+BBLINX=liblinxdevice_bbb.so
+BBLINXPATH=/usr/lib/$BBLINX
+LINXPATH=$CHROOTPATH/usr/lib/liblinxdevice.so
+if [ -e $CHROOTPATH$BBLINXPATH ]; then
+	# Raspberry Pi 2
+	cat /proc/cpuinfo | grep BCM2709 > /dev/null && :
+	if [ $? -eq 0 ]; then
+		ln -s $RPI2LINX $LINXPATH
+		chmod 0755 $LINXPATH
+		exit 0
+	fi
+
+	# BeagleBone Black
+	cat /proc/cpuinfo | grep AM33XX > /dev/null && :
+	if [ $? -eq 0 ]; then
+		ln -s $BBLINX $LINXPATH
+		chmod 0755 $LINXPATH
+		exit 0
+	fi
+fi
