@@ -33,6 +33,15 @@ cp src/NISysServer.py $PKG_DIR/usr/sbin/.
 # Create schroot configuration
 cp -r src/schroot $PKG_DIR/etc/
 
+# Add license info and man pages
+mkdir -p $PKG_DIR/usr/share/doc/labview
+cp src/LICENSE $PKG_DIR/usr/share/doc/labview/.
+mkdir -p $PKG_DIR/usr/share/man/man5
+cp src/labview.5 $PKG_DIR/usr/share/man/man5/.
+gzip $PKG_DIR/usr/share/man/man5/labview.5
+cp src/lvrt.5 $PKG_DIR/usr/share/man/man5/.
+gzip $PKG_DIR/usr/share/man/man5/lvrt.5
+
 # Change permissions
 sudo chown -R root:root $PKG_DIR/*
 
