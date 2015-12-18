@@ -1,5 +1,5 @@
-#!/bin/sh -e
-# postinst script for lvrt-schroot
+#!/bin/sh
+# postrm script for lvrt-schroot
 
 systemctl daemon-reload
 
