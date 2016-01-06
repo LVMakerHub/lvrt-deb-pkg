@@ -12,20 +12,29 @@ RPI2LINX=liblinxdevice_rpi2.so
 BBLINX=liblinxdevice_bbb.so
 BBLINXPATH=/usr/lib/$BBLINX
 LINXPATH=$CHROOTPATH/usr/lib/liblinxdevice.so
+FMTSTR="<?xml version=\"1.0\" standalone='no'?>\n<!DOCTYPE service-group SYSTEM \"avahi-service.dtd\">\n<service-group>\n  <name replace-wildcards=\"yes\">%%h</name>\n  <service>\n    <type>_ni._tcp</type>\n    <port>3580</port>\n    <txt-record>ProdName=%s</txt-record>\n    <txt-record>DevClass=LINX</txt-record>\n  </service>\n</service-group>\n"
+AVAHISVC=/etc/avahi/services/lvrt.service
+
 if [ -e $CHROOTPATH$BBLINXPATH ]; then
 	# Raspberry Pi 2
 	cat /proc/cpuinfo | grep BCM2709 > /dev/null && :
 	if [ $? -eq 0 ]; then
+		# Create symlink to correct liblinxdevice.so
 		ln -s $RPI2LINX $LINXPATH
 		chmod 0755 $LINXPATH
+		# Add Avahi service for LV daemon
+		printf "$FMTSTR" "RPi2" > $AVAHISVC
 		exit 0
 	fi
 
 	# BeagleBone Black
 	cat /proc/cpuinfo | grep AM33XX > /dev/null && :
 	if [ $? -eq 0 ]; then
+		# Create symlink to correct liblinxdevice.so
 		ln -s $BBLINX $LINXPATH
 		chmod 0755 $LINXPATH
+		# Add Avahi service for LV daemon
+		printf "$FMTSTR" "BBB" > $AVAHISVC
 		exit 0
 	fi
 fi

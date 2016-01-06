@@ -3,7 +3,7 @@ Version: 14.1-6
 Section: base
 Priority: optional
 Architecture: armhf
-Depends: schroot, python
+Depends: schroot, python, avahi-daemon
 Maintainer: Ken Sharp <ken.sharp@ni.com>
 Description: LabVIEW run-time schroot
  A schroot environment to allow the softfp LabVIEW run-time to run on a hardfp
