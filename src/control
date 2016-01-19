@@ -4,7 +4,7 @@ Section: base
 Priority: optional
 Architecture: armhf
 Depends: schroot, python, avahi-daemon
-Maintainer: Ken Sharp <ken.sharp@ni.com>
+Maintainer: LabVIEWMakerHub Administrator <admin@labviewmakerhub.com>
 Description: LabVIEW run-time schroot
  A schroot environment to allow the softfp LabVIEW run-time to run on a hardfp
  Debian distro.
