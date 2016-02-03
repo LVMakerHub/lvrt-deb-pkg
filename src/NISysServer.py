@@ -10,9 +10,13 @@ import urlparse
 import os
 import socket
 import threading
+import time
 
 HOST_NAME = ''
 PORT_NUMBER = 3580
+
+RESTART_MAX_RETRIES = 3
+RESTART_RETRY_DELAY = 1
 
 def getIP():
 	retVal = socket.gethostbyname(socket.getfqdn())
@@ -30,8 +34,19 @@ def getIP():
 	return retVal
 
 def restartLV():
+	# Some early versions of systemd (v44) don't consistently restart
+	# services, so retry a few times if the restart fails.
 	print "Restarting LabVIEW now..."
-	os.system("/bin/systemctl restart labview.service")
+	retries = 0
+	while retries < RESTART_MAX_RETRIES:
+		retval = os.system("/bin/systemctl restart labview.service")
+		if retval == 0:
+			print "Restart successful"
+			return
+		else:
+			retries = retries + 1
+			print "Restart failed; retry %d" % retries
+			time.sleep(RESTART_RETRY_DELAY)
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 	def do_GET(s):
