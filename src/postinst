@@ -15,6 +15,9 @@ LINXPATH=$CHROOTPATH/usr/lib/liblinxdevice.so
 FMTSTR="<?xml version=\"1.0\" standalone='no'?>\n<!DOCTYPE service-group SYSTEM \"avahi-service.dtd\">\n<service-group>\n  <name replace-wildcards=\"yes\">%%h</name>\n  <service>\n    <type>_ni._tcp</type>\n    <port>3580</port>\n    <txt-record>ProdName=%s</txt-record>\n    <txt-record>DevClass=LINX</txt-record>\n  </service>\n</service-group>\n"
 AVAHISVC=/etc/avahi/services/lvrt.service
 
+# hard link resolv.conf from host system to chroot
+ln /etc/resolv.conf $CHROOTPATH/etc/resolv.conf
+
 if [ -e $CHROOTPATH$BBLINXPATH ]; then
 	# Raspberry Pi 2
 	cat /proc/cpuinfo | grep BCM2709 > /dev/null && :
