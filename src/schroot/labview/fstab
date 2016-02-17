@@ -21,3 +21,6 @@
 /run/lock	/run/lock	none	rw,bind		0	0
 #/dev/shm	/dev/shm	none	rw,bind		0	0
 #/run/shm	/run/shm	none	rw,bind		0	0
+
+# Add /lib/firmware to allow device tree overlays to work
+/lib/firmware	/lib/firmware	none	rw,bind		0	0
