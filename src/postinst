@@ -18,6 +18,9 @@ AVAHISVC=/etc/avahi/services/lvrt.service
 # hard link resolv.conf from host system to chroot
 ln /etc/resolv.conf $CHROOTPATH/etc/resolv.conf
 
+# symlink update-ca-certificates to make ca-certificates pkg happy
+ln -s /usr/sbin/update-ca-certificates $CHROOTPATH/usr/bin/update-ca-certificates
+
 if [ -e $CHROOTPATH$BBLINXPATH ]; then
 	# Raspberry Pi 2
 	cat /proc/cpuinfo | grep BCM2709 > /dev/null && :

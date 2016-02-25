@@ -3,12 +3,25 @@
 
 systemctl daemon-reload
 
+# remove extra links
 CHROOTPATH=/srv/chroot/labview
+
+RESOLVPATH=$CHROOTPATH/etc/resolv.conf
+if [ -e $RESOLVPATH ]; then
+	rm $RESOLVPATH
+fi
+
+UPDATECERTPATH=$CHROOTPATH/usr/bin/update-ca-certificates
+if [ -e $UPDATECERTPATH ]; then
+	rm $UPDATECERTPATH
+fi
+
 LINXPATH=$CHROOTPATH/usr/lib/liblinxdevice.so
 if [ -e $LINXPATH ]; then
 	rm $LINXPATH
 fi
 
+# remove LV avahi service
 AVAHISVC=/etc/avahi/services/lvrt.service
 if [ -e $AVAHISVC ]; then
 	rm $AVAHISVC
