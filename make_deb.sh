@@ -9,7 +9,7 @@ fi
 
 PKG_NAME=lvrt-schroot
 PKG_VER=14.1
-PKG_REV=8
+PKG_REV=9
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 REPO_DIR=debian
 
