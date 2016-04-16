@@ -1,0 +1,19 @@
+This repo contains scripts to create a debian package containing a chroot 
+environment for the NI-LabVIEW run-time engine for embedded Linux devices.
+
+Requirements
+------------
+This script requires installing dpkg-dev in order to make the debian 
+repository.
+
+Usage
+-----
+make_deb.sh ROOTFS_TARBALL
+
+The ROOTFS_TARBALL is a tar file of the root file system that should be used 
+as the chroot root directory.  It does not require a kernel or bootloader, as 
+these are not used in a chroot.  The tarball is most commonly the output from 
+building an image in the Yocto project.
+
+Maintainers:
+LabVIEWMakerHub Administrator <admin@labviewmakerhub.com>
