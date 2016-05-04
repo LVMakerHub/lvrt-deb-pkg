@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
-# This server emaulates the NI Service Locator and the NI System Web Server
+# Copyright 2016 National Instruments
+# This server emulates the NI Service Locator and the NI System Web Server
 # Primarily the purpose of this emaulator is to publish a web service to
 # reboot the target from the LabVIEW project.
 
