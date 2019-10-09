@@ -8,42 +8,60 @@ systemctl start labview.service
 # Check for the existence if liblinxdevice
 # and add a symlink to the appropriate version
 CHROOTPATH=/srv/chroot/labview
+
 RPI2LINX=liblinxdevice_rpi2.so
+RPI2LINXPATH=/usr/lib/$RPI2LINX
+
 BBLINX=liblinxdevice_bbb.so
 BBLINXPATH=/usr/lib/$BBLINX
+
+USRBINPATH=/usr/bin
 LINXPATH=$CHROOTPATH/usr/lib/liblinxdevice.so
 PREAMBLE="<?xml version=\"1.0\" standalone='no'?>"
 FMTSTR='<!DOCTYPE service-group SYSTEM "avahi-service.dtd">\n<service-group>\n  <name replace-wildcards="yes">%%h</name>\n  <service>\n    <type>_ni._tcp</type>\n    <port>3580</port>\n    <txt-record>ProdName=%s</txt-record>\n    <txt-record>DevClass=LINX</txt-record>\n  </service>\n</service-group>\n'
 AVAHISVC=/etc/avahi/services/lvrt.service
 
 # hard link resolv.conf from host system to chroot
+rm -f $CHROOTPATH/etc/resolv.conf
 ln /etc/resolv.conf $CHROOTPATH/etc/resolv.conf
 
 # symlink update-ca-certificates to make ca-certificates pkg happy
-ln -s /usr/sbin/update-ca-certificates $CHROOTPATH/usr/bin/update-ca-certificates
+ln -sf /usr/sbin/update-ca-certificates $CHROOTPATH/usr/bin/update-ca-certificates
 
-if [ -e $CHROOTPATH$BBLINXPATH ]; then
+if [ -e $CHROOTPATH$RPI2LINXPATH ]; then
 	# Raspberry Pi 2
-	cat /proc/cpuinfo | grep BCM2709 > /dev/null && :
+	# cat /proc/cpuinfo | grep BCM2709 > /dev/null && :
+	test -e /sys/firmware/devicetree/base/model && cat /sys/firmware/devicetree/base/model | 
+	    sed -e 's, Model.*,\n,' -e 's, Rev.*,\n,' | grep 'Raspberry Pi [234]' > /dev/null && :
 	if [ $? -eq 0 ]; then
 		# Create symlink to correct liblinxdevice.so
-		ln -s $RPI2LINX $LINXPATH
+		ln -sf $RPI2LINX $LINXPATH
 		chmod 0755 $LINXPATH
 		# Add Avahi service for LV daemon
 		echo $PREAMBLE > $AVAHISVC
 		printf "$FMTSTR" "RPi2" >> $AVAHISVC
+
+		test -x $CHROOTPATH/$USRBINPATH/linxtcpserver-rpi && ln -sf linxtcpserver-rpi $CHROOTPATH/$USRBINPATH/linxtcpserver
+		test -x $CHROOTPATH/$USRBINPATH/linxserialserver-rpi && ln -sf linxserialserver-rpi $CHROOTPATH/$USRBINPATH/linxserialserver
+		test -x $CHROOTPATH/$USRBINPATH/linxioserver-rpi && ln -sf linxioserver-rpi $CHROOTPATH/$USRBINPATH/linxioserver
 		exit 0
 	fi
+fi
 
+if [ -e $CHROOTPATH$BBLINXPATH ]; then
 	# BeagleBone Black
 	cat /proc/cpuinfo | grep AM33XX > /dev/null && :
 	if [ $? -eq 0 ]; then
 		# Create symlink to correct liblinxdevice.so
-		ln -s $BBLINX $LINXPATH
+		ln -sf $BBLINX $LINXPATH
 		chmod 0755 $LINXPATH
 		# Add Avahi service for LV daemon
 		echo $PREAMBLE > $AVAHISVC
 		printf "$FMTSTR" "BBB" >> $AVAHISVC
+
+		test -x $CHROOTPATH/$USRBINPATH/linxtcpserver-bb && ln -sf linxtcpserver-bb $CHROOTPATH/$USRBINPATH/linxtcpserver
+		test -x $CHROOTPATH/$USRBINPATH/linxserialserver-bb && ln -sf linxserialserver-bb $CHROOTPATH/$USRBINPATH/linxserialserver
+		test -x $CHROOTPATH/$USRBINPATH/linxioserver-bb && ln -sf linxioserver-bb $CHROOTPATH/$USRBINPATH/linxioserver
 		exit 0
 	fi
 fi

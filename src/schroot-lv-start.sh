@@ -4,7 +4,7 @@ LV_SESSION_FILE=/var/lib/schroot/session/lv
 
 # check to make sure that the last schroot session shut down correctly
 if [ -e $LV_SESSION_FILE ]; then
-	rm $LV_SESSION_FILE
+	rm -f $LV_SESSION_FILE
 fi
 
 # start the session

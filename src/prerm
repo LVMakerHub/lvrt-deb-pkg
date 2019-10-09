@@ -1,5 +1,7 @@
 #!/bin/sh
 # postinst script for lvrt-schroot
 
-systemctl stop labview.service
-systemctl stop nisysserver.service
+systemctl is-active --quiet labview.service && systemctl stop labview.service
+systemctl is-active --quiet nisysserver.service && systemctl stop nisysserver.service
+
+exit 0

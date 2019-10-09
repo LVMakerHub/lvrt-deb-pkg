@@ -7,22 +7,19 @@ systemctl daemon-reload
 CHROOTPATH=/srv/chroot/labview
 
 RESOLVPATH=$CHROOTPATH/etc/resolv.conf
-if [ -e $RESOLVPATH ]; then
-	rm $RESOLVPATH
-fi
+rm -f $RESOLVPATH
 
 UPDATECERTPATH=$CHROOTPATH/usr/bin/update-ca-certificates
-if [ -e $UPDATECERTPATH ]; then
-	rm $UPDATECERTPATH
-fi
+rm -f $UPDATECERTPATH
 
 LINXPATH=$CHROOTPATH/usr/lib/liblinxdevice.so
-if [ -e $LINXPATH ]; then
-	rm $LINXPATH
-fi
+rm -f $LINXPATH
+
+rm -f $CHROOTPATH/usr/bin/linxserialserver
+rm -f $CHROOTPATH/usr/bin/linxtcpserver
+rm -f $CHROOTPATH/usr/bin/linxioserver
 
 # remove LV avahi service
 AVAHISVC=/etc/avahi/services/lvrt.service
-if [ -e $AVAHISVC ]; then
-	rm $AVAHISVC
-fi
+rm -f $AVAHISVC
+exit 0
