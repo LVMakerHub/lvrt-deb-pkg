@@ -71,14 +71,14 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			s.send_header("Set-Cookie", "_appwebSessionId_=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT")
 			s.end_headers()
 			s.wfile.write("User admin logged out.")
-		elif ppath.path == 'deletetree':
+		elif ppath.path == '/deletetree':
 			# call to service locator to remove a service
 			# this happens when LV daemon shuts down
 			# since the daemon might not be running when the 
 			# response is sent, just close the connection
 			print "GET deletetree received"
 			s.wfile.close()
-		elif ppath.path == 'publish':
+		elif ppath.path == '/publish':
 			# call to service locator to add a service
 			# this happens when LV daemon starts
 			s.send_response(200)
