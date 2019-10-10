@@ -3,5 +3,7 @@
 
 systemctl is-active --quiet labview.service && systemctl stop labview.service
 systemctl is-active --quiet nisysserver.service && systemctl stop nisysserver.service
+systemctl is-active --quiet linxioserver-tcp.service && systemctl stop lixioserver-tcp.service
+systemctl is-active --quiet linxioserver-serial.service && systemctl stop linxioserver-serial.service
 
 exit 0
