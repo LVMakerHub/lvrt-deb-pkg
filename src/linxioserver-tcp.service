@@ -1,11 +1,9 @@
 [Unit]
 Description=Linx TCP IO Server
+Requires=labview.service
 After=labview.service
 
 [Service]
 Type=simple
 ExecStart=/usr/sbin/chroot /var/lib/schroot/mount/lv /usr/bin/linxioserver -tcp 44300
-
-#[Install]
-#WantedBy=multi-user.target
 

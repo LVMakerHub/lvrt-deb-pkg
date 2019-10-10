@@ -44,7 +44,8 @@ cp src/nisysserver.service $SYSTEMD_SERVICE_DIR/
 rm -f $SYSTEMD_SERVICE_MUT_DIR/nisysserver.service
 ln -sf /etc/systemd/system/nisysserver.service $SYSTEMD_SERVICE_MUT_DIR/nisysserver.service
 
-cp src/linxioserver.service $SYSTEMD_SERVICE_DIR/
+cp src/linxioserver-tcp.service $SYSTEMD_SERVICE_DIR/
+cp src/linxioserver-serial.service $SYSTEMD_SERVICE_DIR/
 
 # Add NI Sys Web Server emulator script
 cp src/NISysServer.py $PKG_DIR/usr/sbin/.
