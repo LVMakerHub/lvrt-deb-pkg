@@ -18,7 +18,7 @@ fi
 
 PKG_NAME=lvrt19-schroot
 PKG_VER=19.0.1
-PKG_REV=3
+PKG_REV=6
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 REPO_DIR=debian
 
