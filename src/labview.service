@@ -1,5 +1,5 @@
 [Unit]
-Description=LabVIEW 2019 SP1 chroot run-time daemon
+Description=LabVIEW 2020 chroot run-time daemon
 After=network.target
 
 [Service]

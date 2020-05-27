@@ -1,9 +1,10 @@
-Package: lvrt19-schroot
+Package: lvrt-schroot
 Version: VERSION
 Section: base
 Priority: optional
-Replaces: lvrt-schroot (<< 19.0.1-6)
-Conflicts: lvrt-schroot (<< 19.0.1-6)
+Provides: lvrt-schroot
+Replaces: lvrt-schroot, lvrt19-schroot
+Conflicts: lvrt-schroot, lvrt19-schroot
 Architecture: armhf
 Depends: schroot, python, avahi-daemon
 Maintainer: LabVIEWMakerHub Administrator <admin@labviewmakerhub.com>
