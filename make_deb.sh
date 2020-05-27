@@ -16,9 +16,9 @@ if [ ! -f "$IMAGE_TAR" ]; then
 	exit 1
 fi
 
-PKG_NAME=lvrt19-schroot
-PKG_VER=19.0.1
-PKG_REV=6
+PKG_NAME=lvrt20-schroot
+PKG_VER=20.0.0
+PKG_REV=3
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 REPO_DIR=debian
 
@@ -82,7 +82,7 @@ rm -r $CHROOT_DIR/home/root
 
 # Create control file and maintainer scripts
 mkdir $PKG_DIR/DEBIAN
-sed 's/VERSION/'$PKG_VER-$PKG_REV'/' src/control > $PKG_DIR/DEBIAN/control
+sed -e 's/VERSION/'$PKG_VER-$PKG_REV'/' -e 's/lvrt-schroot/'$PKG_NAME'/' src/control > $PKG_DIR/DEBIAN/control
 cp src/post* $PKG_DIR/DEBIAN/.
 cp src/pre* $PKG_DIR/DEBIAN/.
 
