@@ -1,7 +1,10 @@
 #!/bin/sh
 # postrm script for lvrt-schroot
 
-systemctl daemon-reload
+# reload the files if systemd is running
+if [ -d /run/systemd/system ]; then
+        systemctl daemon-reload
+fi
 
 # remove extra links
 CHROOTPATH=/srv/chroot/labview
