@@ -8,16 +8,18 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-# check to make sure the services are installed
-# if so, then stop them
-foo=`systemctl | grep labview`
-if [ $? -eq 0 ]; then
-	systemctl is-active --quiet labview.service && systemctl stop labview.service
-fi
+if [ -d /run/systemd/system ]; then
+	# check to make sure the services are installed
+	# if so, then stop them
+	foo=`systemctl | grep labview`
+	if [ $? -eq 0 ]; then
+		systemctl is-active --quiet labview.service && systemctl stop labview.service
+	fi
 
-foo=`systemctl | grep nisysserver`
-if [ $? -eq 0 ]; then
-	systemctl is-active --quiet nisysserver.service && systemctl stop nisysserver.service
+	foo=`systemctl | grep nisysserver`
+	if [ $? -eq 0 ]; then
+		systemctl is-active --quiet nisysserver.service && systemctl stop nisysserver.service
+	fi
 fi
 
 exit 0

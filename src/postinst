@@ -1,9 +1,17 @@
 #!/bin/sh
 # postinst script for lvrt-schroot
 
-systemctl daemon-reload
-systemctl start nisysserver.service
-systemctl start labview.service
+# enable systemd unit files both in the running and offline/container cases
+if [ -d /run/systemd/system ]; then
+	systemctl daemon-reload
+	systemctl enable nisysserver.service
+	systemctl start nisysserver.service
+	systemctl enable labview.service
+	systemctl start labview.service
+elif [ -x "/usr/bin/deb-systemd-helper" ]; then
+	deb-systemd-helper enable nisysserver.service
+	deb-systemd-helper enable labview.service
+fi
 
 # Check for the existence if liblinxdevice
 # and add a symlink to the appropriate version
