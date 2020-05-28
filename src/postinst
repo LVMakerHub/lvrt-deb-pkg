@@ -21,10 +21,6 @@ PREAMBLE="<?xml version=\"1.0\" standalone='no'?>"
 FMTSTR='<!DOCTYPE service-group SYSTEM "avahi-service.dtd">\n<service-group>\n  <name replace-wildcards="yes">%%h</name>\n  <service>\n    <type>_ni._tcp</type>\n    <port>3580</port>\n    <txt-record>ProdName=%s</txt-record>\n    <txt-record>DevClass=LINX</txt-record>\n  </service>\n</service-group>\n'
 AVAHISVC=/etc/avahi/services/lvrt.service
 
-# hard link resolv.conf from host system to chroot
-rm -f $CHROOTPATH/etc/resolv.conf
-ln /etc/resolv.conf $CHROOTPATH/etc/resolv.conf
-
 # symlink update-ca-certificates to make ca-certificates pkg happy
 ln -sf /usr/sbin/update-ca-certificates $CHROOTPATH/usr/bin/update-ca-certificates
 
