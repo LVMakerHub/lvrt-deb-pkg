@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Make sure inputs are correct
 if [ $# -lt 1 ]; then
@@ -45,24 +46,49 @@ if [[ $IMAGE_FILE == *.zip ]]; then
 	echo "Unzipping $IMAGE_FILE"
 	unzip $IMAGE_FILE -d $TMP_DIR
 	IMAGE_FILE=`ls $TMP_DIR | grep -e \.img$`
+elif [[ $IMAGE_FILE == *.xz ]]; then
+	echo "Un-xzing $IMAGE_FILE"
+	cp $IMAGE_FILE $TMP_DIR/.
+	xz -d $TMP_DIR/$(basename $IMAGE_FILE)
+	# xz will delete the archive after decompressing
+	IMAGE_FILE=`ls $TMP_DIR | grep -e \.img$`
+	OUTPUT_ZIP_FILE="${OUTPUT_ZIP_FILE%.*}"".zip"
 fi
 
 # mount image
 echo "Mounting image..."
 LOOP_FILE=`losetup -f -P --show $TMP_DIR/$IMAGE_FILE`
 echo $LOOP_FILE
-# rootfs should be in the second partition
 LOOP_PART_FILE=$LOOP_FILE"p2"
-echo $LOOP_PART_FILE
-mount $LOOP_PART_FILE -o rw $MNT_DIR
+if [ -e LOOP_PART_FILE ]; then
+	# rootfs should be in the second partition - in RPi case
+	echo $LOOP_PART_FILE
+	mount $LOOP_PART_FILE -o rw $MNT_DIR
+else
+	# there's only 1 partition - probably a BBB
+	LOOP_PART_FILE=$LOOP_FILE"p1"
+	echo $LOOP_PART_FILE
+	mount $LOOP_PART_FILE -o rw $MNT_DIR
+fi
 
 # cp arm emulator to image
 echo "Adding ARM emaulator to image"
 cp /usr/bin/qemu-arm-static $MNT_DIR/usr/bin/.
 
 # comment out ld.so.preload contents
-echo "Commenting out ld.so.preload"
-sed -i 's/^\([^#]\)/#\1/g' $MNT_DIR/etc/ld.so.preload
+LD_PRELOAD_PATH=$MNT_DIR/etc/ld.so.preload
+if [ -e $LD_PRELOAD_PATH ]; then
+	echo "Commenting out ld.so.preload"
+	sed -i 's/^\([^#]\)/#\1/g' $LD_PRELOAD_PATH
+fi
+
+# if resolv.conf exists temporarily move it so that systemd-nspawn
+# can use the host system's resolv.conf
+RESOLV_PATH=$MNT_DIR/etc/resolv.conf
+if [ -f $RESOLV_PATH -o -L $RESOLV_PATH ]; then
+	echo "Moving resolv.conf"
+	mv $RESOLV_PATH $RESOLV_PATH".hold"
+fi
 
 # if using a deb file, copy it into the image
 if [ ! -z $DEB_FILE ]; then
@@ -113,8 +139,16 @@ echo "Removing arm emulator"
 rm $MNT_DIR/usr/bin/qemu-arm-static
 
 # uncomment ld.preload
-echo "Uncommenting ld.so.preload"
-sed -i 's/^#//g' $MNT_DIR/etc/ld.so.preload
+if [ -e $LD_PRELOAD_PATH ]; then
+	echo "Uncommenting ld.so.preload"
+	sed -i 's/^#//g' $MNT_DIR/etc/ld.so.preload
+fi
+
+# move back resolv.conf
+if [ -f $RESOLV_PATH".hold" -o -L $RESOLV_PATH".hold" ]; then
+	echo "Moving resolv.conf back"
+	mv $RESOLV_PATH".hold" $RESOLV_PATH
+fi
 
 # unmount image file
 echo "Unmounting image"
