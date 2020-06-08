@@ -1,20 +1,511 @@
-.TH labview 5 "07 Aug 2019" "19.0.1" "labview man page"
+.TH labview 5 "02 June 2020" "20.0.0" "labview man page"
 .SH NAME
 labview \- run-time engine for LabVIEW Virtual Instruments
 .SH LICENSE
-PLEASE READ THE FOLLOWING TERMS CAREFULLY. BY INSTALLING OR USING THE SOFTWARE, YOU AGREE TO THE FOLLOWING TERMS.
+NATIONAL INSTRUMENTS SOFTWARE LICENSE AGREEMENT
 
-Software License Agreement
+CAREFULLY READ THIS SOFTWARE LICENSE AGREEMENT ("AGREEMENT"). BY DOWNLOADING THE SOFTWARE AND/OR CLICKING THE APPLICABLE BUTTON TO COMPLETE THE INSTALLATION PROCESS, YOU AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT WISH TO BECOME A PARTY TO THIS AGREEMENT AND BE BOUND BY ITS TERMS AND CONDITIONS, DO NOT INSTALL OR USE THE SOFTWARE, AND RETURN THE SOFTWARE (WITH ALL ACCOMPANYING WRITTEN MATERIALS AND THEIR CONTAINERS) WITHIN THIRTY (30) DAYS OF RECEIPT. ALL RETURNS TO NI WILL BE SUBJECT TO NI'S THEN-CURRENT RETURN POLICY. If you are accepting these terms on behalf of an entity, you agree that you have authority to bind the entity to these terms.
 
-Subject to your compliance with the terms of this software license agreement, NI grants you a limited, revocable, non-exclusive, non-sublicensable license to use this software ("Software") as deployed on your hardware targets (each "Target") and solely for your personal, non-commercial use. You may redistribute the code only as deployed on a Target and solely for the recipient's personal, non-commercial use, provided that you include a copy of this license with the software.
+The terms of this Agreement apply to the computer software provided with this Agreement, all updates or upgrades to the software that may be provided later by NI as part of any maintenance, technical support, or other services program for the software, including during any renewal term, unless such update, upgrade, or renewal comes with separate software license terms, and all accompanying documentation, utilities, and Driver Interface Software (collectively "Software" or "SOFTWARE"). Software does not include certain third party software that NI provides to you but that is subject to separate license terms either presented at the time of installation or otherwise provided with the Software ("Third Party Software"), and Software does not include Source Code, which is defined in and licensed pursuant to the terms set forth in Addendum A – Source Code License.
 
-Software does not include certain third party software that NI provides to you but that is subject to separate license terms either presented at the time of installation or otherwise provided with the Software.
+1.	Grant of License; Restrictions
 
-You may not modify or create derivatives of the Software; reverse engineer, decompile, or disassemble the Software, unless and only to the extent that applicable law expressly prohibits this restriction; defeat or work around any access restrictions or encryption in the Software, unless and only to the extent that applicable law expressly prohibits this restriction; or remove, minimize, block, or modify any titles, logos, trademarks, copyright and patent notices, disclaimers, or other legal notices that are included in the Software.
+A.	In consideration of, and conditioned upon, your payment of any applicable fees to NI and subject to the terms set forth in this Agreement, National Instruments Corporation or National Instruments Ireland Resources Ltd. ("NI"), as applicable depending on the country of manufacture, hereby grants you a limited, revocable, non-exclusive right and license to use the Software only in the specific configuration allowed by the license type identified in the applicable documentation provided by NI to you. Unless otherwise provided in this Agreement or in the applicable documentation provided by NI to you, the applicable license type is a named user license and the term of the license, if purchased and not evaluation, is perpetual and not term. With the exception of Authorized Applications (as hereinafter defined), the Software is for your internal use only.
 
-SOFTWARE IS PROVIDED BY NI AND ITS LICENSORS "AS IS" AND WITH NO EXPRESS OR IMPLIED WARRANTIES, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. ANY IMPLIED OR EXPRESS WARANTIES ARE DISCLAIMED. IN NO EVENT SHALL NI OR ITS LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF USE, LOSS OF DATA, AND LOSS OF PROFITS, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT, ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE, EVEN IF NI OR ITS LICENSOR WAS ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+B.	Restrictions. You must not violate any applicable laws in your use of the Software. Unless and only to the extent that this Agreement expressly permits, you must not
+
+(i)	modify or create derivatives of the Software;
+
+(ii)	install or use the Software in a floating, concurrent, or any other shared context;
+
+(iii)	distribute or otherwise make the Software or any password, key, or other access code for the Software available to any third party;
+
+(iv)	reverse engineer, decompile, or disassemble the Software, unless and only to the extent that applicable law expressly prohibits this restriction;
+
+(v)	defeat or work around any access restrictions or encryption in the Software, unless and only to the extent that applicable law expressly prohibits this restriction;
+
+(vi)	sublicense, lease, lend, or rent the Software;
+
+(vii)	remove, minimize, block, or modify any titles, logos, trademarks, copyright and patent notices, digital watermarks, disclaimers, or other legal notices that are included in the Software, whether or not they are NI or a third party's;
+
+(viii) cause any of the Software, including any Software included in an Authorized Application, to become subject to a license that requires, as a condition of use, modification, or distribution, that (a) code subject to the license be disclosed or distributed in source code form or (b) others have the right to modify or create derivative works of the code subject to the license; or
+
+(ix)	use any Software scripting functionality to create an application that performs the functionality of an editor for a graphical programming environment.
+
+C.	Your use of the Software must also be in accordance with the applicable documentation that accompanies the Software and not in any manner that circumvents or is intended to circumvent such documentation or the intent of this Agreement.
+
+D.	You may make a reasonable number of copies of the Software solely for backup or archival purposes and a reasonable number of copies of the documentation that accompanies the Software solely for your internal use in connection with your use of the Software.
+
+2. 	License Types
+
+A.	Named User License. If you have acquired a named user license, you may install the Software on up to three (3) computers in a single workplace of one (1) individual you designate and register with NI ("Named User"). For the purposes of this Agreement, a computer will be one computing device or, if the Software is being used in connection with a virtual machine, one virtual machine on a computing device. The Named User must be identified in writing through the NI registration process. Only the Named User may use or otherwise run the Software, and the Software may not be run on more than one computer at a time. You may not share access to the installed Software over a network such that the installed Software can be run by a different user. You may change the Named User to another designated employee provided that each new named user license is registered with NI; no more than four (4) such changes may occur per calendar year. At your discretion, you may convert a named user license to a computer-based license.
+
+B.	Computer-Based License. If you have acquired a computer-based license, you may install the Software on one (1) computer in your workplace. For the purposes of this Agreement, a computer will be one computing device or, if the Software is being used in connection with a virtual machine, one virtual machine on a computing device. There is no limitation on the number of your employees that may access and use the Software installed on such computer. All of the Software must be installed and used on the same computer. You may not share access to the installed Software over a network such that the installed Software can be run on a different computer. You may change the designated computer to another computer within the applicable single workplace, provided that none of the Software remains installed on the previous designated computer; no more than four (4) such changes may occur per calendar year.
+
+C.	Home Usage Exception. If you are a business or other entity, the designated Named User for the applicable license or, in the case of a computer-based license, the single individual who is the primary user of the single computer on which the Software is installed and used, may also install and use the Software on one (1) computer located in such user's home, provided that the use of the Software on such home computer is limited to work performed in the scope of such person's employment with you and complies with all terms and conditions of this Agreement. The Software must be promptly uninstalled from the individual's home computer upon the earlier of the underlying license's expiration or termination date or the date the individual's authority to use the Software pursuant to the underlying license terminates.
+
+3.	Additional Terms. You may have additional rights and obligations to the Software through special license types and license programs, as set forth in addenda to this Agreement and which are incorporated as part of this Agreement. Additional product-specific provisions may be provided in a specific Product Addendum to this Agreement for the relevant product and the terms of which are incorporated into this Agreement. In the event of a conflict between an addendum and the other terms set forth in this Agreement, the terms of the addendum will control.
+
+Addendum A	Source Code License
+
+Addendum B	Special License Types
+
+Evaluation License; Pre-Release Software
+
+Compile-Only License (Measurement Studio)
+
+Driver Interface Software
+
+Multiple Access License (NI-488.2 Software for GPIB-ENET)
+
+Concurrent Use License
+
+Debug License
+
+Continuous Integration License (LabVIEW)
+
+Addendum C	Volume License Program Terms
+
+Addendum D	Enterprise Program Terms
+
+Addendum E	Academic License Terms
+
+Addendum F	Product-Specific Provisions (TestStand, Measurement Studio, LabVIEW Community Edition and LabVIEW NXG Community Edition)
+
+4.	Third Party Contractors. Your third party contractors may access and use the Software, provided that they do so solely for your benefit, they agree to use the Software solely in accordance with the terms of this Agreement, and you agree to remain liable to NI for any breach by your contractors of this Agreement.
+
+5.	Software Services. If you have purchased a perpetual license, you may be required to purchase upgrades or maintenance, technical, or other services for the Software (“Software Services”) separately. Except as otherwise provided under a special license type or license program, if you have purchased a term license, the fee for Software Services is included within the fees quoted for the entire term of use.6.	License Term; Termination and Expiration
+
+A.	Term or Subscription Licenses. If you have purchased a term license (also referred to as a “subscription license”), the term of the license will commence on the date of your invoice and, unless terminated pursuant to the provisions in this Agreement, continues for the period of time specified in the product description or other applicable documentation provided to you by NI.
+
+(i)	Unless the product description indicates otherwise, the license will expire automatically at the end of such term.
+
+(ii)	If you have a term license that autorenews, your license will automatically renew for an additional year, unless either party notifies the other at least thirty (30) days prior to the commencement of the renewal term that it is cancelling the renewal. The price for a renewal may change from time to time at NI’s discretion. In such event, NI will provide you with an updated quote at least sixty (60) days prior to the termination of the current term. If you do not agree to the new price, you may provide notice of intent not to renew thirty (30) days prior to the commencement of the renewal term.
+
+B.	Perpetual Licenses. If you have purchased a license and the license is specified as "perpetual" or no period of time is specified in the product description or other applicable documentation provided to you by NI, your license will be perpetual and, unless terminated pursuant to the provisions herein, you have the right to use the Software indefinitely.
+
+C.	Termination. NI conditions its license grant on you complying with the terms set forth in this Agreement, and this Agreement will automatically terminate, immediately and without prior notice, if you fail to comply with its terms.
+
+D.	Effect of Termination or Expiration. Upon termination or expiration of this Agreement, regardless of the reason, the license grants contained herein will terminate and you must immediately cease all use of the Software, cease all distribution of Authorized Applications, and destroy all copies of the Software; provided, however, you must deliver the Software and all copies to NI if NI has so demanded in lieu of any destruction. Sections 11, 15, 16, 17, 19, 20, 21, 22.A., and 23 of this Agreement will survive any expiration or termination of this Agreement.
+
+7.	Transfer. You may transfer a named user license or computer-based license to a third party in the same country in which you purchased the license, or within the European Union if you purchased the license in the European Union, provided that (i) you notify NI in writing of such transfer, including the name and location of such third party; (ii) such third party accepts the terms and conditions of this Agreement; and (iii) after such transfer you do not retain any copies of the Software or any of the written materials accompanying the Software. NI may, in its discretion, charge you a fee for the license transfer.
+
+8.	Upgrades; Prior Versions. If the Software is an upgrade, you may only use the Software if you have a valid license to use the prior version of the Software, and you may not use both the upgrade and the prior version of the Software concurrently. You may elect to use a prior version of any Software delivered and licensed under this Agreement in lieu of using the Software delivered and licensed under this Agreement ("Delivered Software"), provided (i) you have an authorized copy of the prior version of the Delivered Software; (ii) all use is pursuant to and in accordance with this Agreement; and (iii) notwithstanding anything in this Agreement to the contrary, in no event will NI be required to support any version of the Software, including providing applicable software key codes or hardware keys, other than the then most current version of the Delivered Software.
+
+9.	Multiple Versions. If NI distributes the Software on installation media containing multiple versions of the Software for use with different operating systems or makes the same available through download, you may use only one version of the Software.
+
+10.	Software/Hardware Key; Prior Access. You agree to use any software key codes or hardware keys provided by NI solely with the Software for which it is provided. While NI may in its sole discretion provide you with the applicable key or other access to use the Software prior to receipt from you of the applicable license fees, you will remain obligated to pay such fees to NI.
+
+11.	Copyright; No Other Licenses. The Software is licensed and not sold. The Software, all copies of the Software, related contents, and all rights therein, are owned by NI or its suppliers and are protected by applicable copyright laws and international treaty provisions. All rights not expressly granted to you in this Agreement are reserved to NI. Further, and without limiting the foregoing, no license or any right of any kind, whether by express license, implied license, the doctrine of exhaustion, or otherwise, is granted under any NI patents (whether identified herein or not) or other intellectual property right of NI with respect to any other product of NI or of any third party, including the right to use any such other product.
+
+12.	Application Deployment
+
+A. 	An "Authorized Application" is (i) an application that you create with a development version of the Software; (ii) an application that you create with third party software using real-time operating system components of the LabVIEW Real-Time Module and the LabWindows/CVI Real-Time Module in accordance with the licenses for such modules; or (iii) an application that you create with a third party software development environment that utilizes Driver Interface Software, if such software development environment is supported by such Driver Interface Software as indicated in the applicable documentation for such Driver Interface Software. "Driver Interface Software" means computer software and other code provided with this Agreement that are listed as hardware drivers or device drivers on NI's hardware driver listing web page, which is currently located at www.ni.com/driverinterfacesoftware, or that are added by NI at any time to such listing or any similar successor listings, together with all accompanying documentation and utilities. In no event, however, will the term "Driver Interface Software" ever include any Third Party Software, operating system software, instrument driver software, application software, toolkits, modules, driver development kit (DDK) or portion thereof, software development kit (SDK) or portion thereof, module development kit (MDK) or portion thereof, or any software or other code designated by NI as being any of the foregoing; or any of the foregoing's accompanying documentation or utilities.
+
+B.	Deployment and Distribution Requirements. You may distribute, deploy, or otherwise make available Authorized Applications, along with applicable runtime engines for the Software and applicable Driver Interface Software that you may include as part of or together with your Authorized Applications, provided that you comply with each of the requirements set forth below.
+
+(i)	You must include the following copyright notice in the Authorized Application's About Box (if applicable) and in any applicable written documentation or, if no such documentation exists, in a "read me" or other .txt file distributed with each copy of the Authorized Application.
+
+"Copyright © [insert year] National Instruments Corporation. All Rights Reserved."
+
+You may instead, or in addition, include your own copyright notice with the notice required above, but in no event may you remove or alter any copyright, patent, trademark, or other legal notices or disclaimers that exist in the Software and with respect to any runtime engines for the Software and any Driver Interface Software that you include as part of or together with your Authorized Application, your copyright notice will be understood as protecting NI or its licensor's copyrights in the Software and will not be understood as meaning that you have any copyright in or with respect to any Software.
+
+(ii)	You may not use NI's name, logo, or trademarks to market your Authorized Application without NI's express prior written permission.
+
+(iii)	If you distribute to any third parties your Authorized Application with Driver Interface Software or any runtime engine for the Software, you must either pass through to your end users this Agreement or do so subject to your own license agreement that is substantially in accordance with this Agreement and at least as protective of NI as this Agreement.
+
+(iv)	The Authorized Application must not consist of or include any malicious, deceptive, or unlawful programs.
+
+C.	Fees. You may distribute, deploy, or otherwise make available Authorized Applications without paying additional fees to NI. Provided, however, if the Authorized Application was created utilizing any of the software identified in NI's Deployment Licenses listing web page, which is currently located at http://www.ni.com/product-documentation/9561/en/, or any similar successor listings, as such listings may be updated by NI from time to time, or such other software as NI may from time to time designate (any of the foregoing a "Designated Deployment License"), then you must, before distributing, deploying, or otherwise making available the Authorized Application for use on any other computer, either (i) verify that the recipient has a valid license to run the applicable Authorized Application on, or has a valid Deployment License for, each computer on which the Authorized Application will be used or (ii) obtain written distribution authorization from NI and, if required by NI, pay to NI a per copy fee for each Authorized Application distributed, deployed, or otherwise made available. In the case of any Driver Interface Software identified as being subject to the license verification or distribution authorization requirements stated above, if the Authorized Application utilizes, calls, or otherwise accesses any such Driver Interface Software, the Authorized Application will be deemed to have been created utilizing such Driver Interface Software for purposes of this Section. Unless otherwise specified by NI in writing, Designated Deployment Licenses are computer-based licenses and the home usage exception does not apply to Designated Deployment Licenses.
+
+13.	Patent and Trademark Notice. For patents covering National Instruments products, refer to the appropriate location: Help»Patents in the Software, the patents.txt file included with the Software (such as on the installation media on which the Software was distributed to you), or ni.com/patents. National Instruments, NI, ni.com, and LabVIEW are trademarks of National Instruments Corporation. Refer to ni.com/trademarks for more information about National Instruments trademarks. All other product and company names mentioned herein are or may be trademarks or trade names of their respective companies.
+
+14.	Limited Warranty. NI warrants, for your benefit alone, that for a period of ninety (90) days from the date the Software is shipped to you or, if downloaded, from the date the Software is first downloaded by you, (i) the Software will perform substantially in accordance with the documentation that accompanies the Software and (ii) the installation media on which NI provides the Software (if any) will be free from defects in materials and workmanship under normal use and service ("Limited Warranty"). Any replacement Software will be warranted for the remainder of the original warranty period or thirty (30) days, whichever is longer. Some jurisdictions do not allow exclusion of or limitation on duration of an express or implied warranty or limitation on any applicable statutory rights of a consumer, so the above limitations may not apply to you; in such event, such warranties are limited to the minimum warranty period allowed by applicable law. The Limited Warranty is void if failure of the Software has resulted from accident, abuse, misapplication, improper calibration by you, third party products (either hardware or software) used by you that are not intended by NI for use with the Software, utilization of an improper hardware or software key, or unauthorized maintenance of the Software.
+
+15. 	Customer Remedies. NI's sole obligation, and your sole remedy, with respect to the foregoing Limited Warranty will be to, at NI's option, repair or replace the Software or return the fees paid by you to NI for the Software license, in which event you must return or destroy all copies of the Software in accordance with NI's instructions and the license granted to you will terminate without liability on the part of NI by reason of such termination. NI's obligations as set forth in this Section are contingent on you providing NI with written notice of applicable defects during the warranty period. In addition, you must obtain a Return Material Authorization number from NI before returning the Software under warranty to NI, and you agree to pay any expenses for shipment to and from NI.
+
+16.	No Other Warranties. EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NO WARRANTY, EITHER EXPRESS OR IMPLIED, IS MADE BY NI WITH RESPECT TO THE SOFTWARE OR USE OF THE SOFTWARE. NI DOES NOT MAKE ANY WARRANTY OR REPRESENTATION HEREUNDER WITH RESPECT TO ANY THIRD PARTY SOFTWARE, SOURCE CODE, OR SOFTWARE SERVICES. NI DOES NOT WARRANT, GUARANTEE, OR MAKE ANY REPRESENTATION THAT THE SOFTWARE, THE OPERATION OF THE SOFTWARE, OR ANY RELATED SOFTWARE SERVICES, SOURCE CODE, OR THIRD PARTY SOFTWARE WILL BE UNINTERRUPTED OR ERROR FREE AND DOES NOT WARRANTY, GUARANTEE, OR MAKE ANY REPRESENTATION REGARDING CORRECTNESS, ACCURACY, RELIABILITY, OR OTHERWISE. THERE ARE NO OTHER WARRANTIES THAT MAY ARISE FROM USAGE OF TRADE OR COURSE OF DEALING. NI DISCLAIMS ANY AND ALL IMPLIED WARRANTIES, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT, RELATING TO THE SOFTWARE AND ANY RELATED THIRD PARTY SOFTWARE, SOURCE CODE, AND SOFTWARE SERVICES.
+
+17.	Limitations Period. You hereby agree not to bring an action to enforce your remedies under the Limited Warranty or for breach of warranty more than one (1) year after the accrual of such cause of action.
+
+18.	Intellectual Property Liability. NI will, at its own expense, defend any claim brought against you by a third party resulting from your use of the Software, to the extent that such claim alleges that the Software infringes any patent, copyright, or trademark of such third party protected by the laws of the U.S.A., Canada, Mexico, Japan, Australia, Switzerland, Norway, or the European Union and provided that such claim does not arise from (i) your use of the Software in combination with equipment, devices, software, or code not made by NI; (ii) your use of the Software in a manner not in accordance with this Agreement or for a purpose not intended by NI; (iii) your failure to incorporate Software updates or upgrades provided by NI that would have avoided the alleged infringement; or (iv) any modification of the Software not made by NI. NI's obligations in this Section are further contingent on you notifying NI in writing promptly upon your obtaining notice of such impending claim and your fully cooperating with NI in preparing a defense. If you provide to NI the authority, assistance, and information NI needs to defend or settle such claim, NI will pay any final award of damages or settlement with respect to such claim and any expense you incur at NI's written request. NI will not be liable for a settlement made without its prior written consent. If the Software is held to be infringing of the rights stated above in this Section and the use of the Software is enjoined, NI will, or if NI believes the Software might be held to infringe a third party's intellectual property rights NI may, at its option, (i) procure for you the right to use the Software; (ii) replace or modify the Software with other software that does not infringe; or (iii) receive your return of the infringing Software and refund to you the license fee payment made by you to NI for the Software. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, NI'S LIABILITY, THE LIABILITY OF ITS LICENSORS AND SUPPLIERS, AND THE LIABILITY OF ITS AND THEIR DIRECTORS, OFFICERS, EMPLOYEES, AND AGENTS, UNDER THIS SECTION AND REGARDLESS OF THE REASON FOR SUCH LIABILITY, WILL NOT EXCEED IN THE AGGREGATE $50,000 (U.S.). The foregoing states your sole remedy for, and NI's entire liability and responsibility for, infringement of any patent, trademark, copyright, or other intellectual or industrial property right relating to the Software. THIS LIMITED INDEMNITY IS IN LIEU OF ANY OTHER STATUTORY OR IMPLIED WARRANTY AGAINST INFRINGEMENT. THE FOREGOING OBLIGATIONS WILL NOT APPLY TO ANY THIRD PARTY SOFTWARE OR TO ANY THIRD PARTY PRODUCTS INCORPORATED IN OR OTHERWISE PROVIDED WITH THE SOFTWARE, AND YOU AGREE TO LOOK TO THE APPLICABLE THIRD PARTY MANUFACTURER WITH RESPECT TO ANY CLAIMS FOR INFRINGEMENT INVOLVING THIRD PARTY SOFTWARE OR THIRD PARTY PRODUCTS.
+
+19.	Limitation On Liability. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL NI OR ITS LICENSORS, DISTRIBUTORS, OR SUPPLIERS (INCLUDING NI'S AND THEIR DIRECTORS, OFFICERS, EMPLOYEES, AND AGENTS) BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE, EXEMPLARY, OR CONSEQUENTIAL DAMAGES OF ANY KIND, INCLUDING DAMAGES ARISING FROM LOST PROFITS, LOST SAVINGS, LOST BUSINESS OPPORTUNITY, BUSINESS INTERRUPTION, OR LOST OR CORRUPTED DATA OR SOFTWARE, EVEN IF NI OR ITS LICENSORS, DISTRIBUTORS, OR SUPPLIERS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES AND REGARDLESS OF WHETHER CAUSED OR CONTRIBUTED TO BY THE NEGLIGENCE OF NI OR OTHERS, AND, EXCEPT AS SET FORTH IN SECTION 18, IN NO EVENT WILL NI'S LIABILITIES UNDER THIS AGREEMENT, WHETHER UNDER CONTRACT LAW, TORT LAW, WARRANTY, OR OTHERWISE, EXCEED THE TOTAL AMOUNT RECEIVED BY NI FOR THE APPLICABLE SOFTWARE LICENSE. You acknowledge that the applicable fees and prices reflect this allocation of risk. To the extent the foregoing limitation of liability is not enforceable or fails of its essential purpose, except for liability for bodily injury or death caused by the Software in the form provided by NI or any liability not capable of being excluded by applicable law, the sole liability of NI to you under or in connection with this Agreement shall be limited to the greater of $50,000 (U.S.) or the license fee paid to NI for the Software.
+
+20.	HIGH-RISK USES AND YOUR RESPONSIBILITIES FOR YOUR APPLICATIONS
+
+A.	NI PRODUCTS ARE NOT DESIGNED, MANUFACTURED, OR TESTED FOR USE IN HAZARDOUS ENVIRONMENTS OR ANY OTHER ENVIRONMENTS REQUIRING FAIL-SAFE PERFORMANCE, INCLUDING IN THE OPERATION OF NUCLEAR FACILITIES, AIRCRAFT NAVIGATION, AIR TRAFFIC CONTROL SYSTEMS; LIFE SAVING OR LIFE SUSTAINING SYSTEMS OR SUCH OTHER MEDICAL DEVICES; OR ANY OTHER APPLICATION IN WHICH THE FAILURE OF THE SOFTWARE COULD LEAD TO DEATH, PERSONAL INJURY, SEVERE PROPERTY DAMAGE, OR ENVIRONMENTAL HARM. YOU WILL DEFEND, INDEMNIFY, AND HOLD HARMLESS NI AND ITS DIRECTORS, OFFICERS, EMPLOYEES, AND AGENTS FROM ANY AND ALL CLAIMS, LOSSES, DAMAGES, ACTIONS, AND EXPENSES (INCLUDING REASONABLE ATTORNEYS' FEES) ARISING OUT OF YOUR USE OF THE SOFTWARE FOR HIGH-RISK USES, INCLUDING CLAIMS FOR PRODUCT LIABILITY, PERSONAL INJURY OR DEATH, OR DAMAGE TO PROPERTY, AND REGARDLESS OF WHETHER SUCH CLAIMS ARE FOUNDED IN WHOLE OR IN PART ON THE ALLEGED OR ACTUAL NEGLIGENCE OF NI.
+
+B.	YOU ACKNOWLEDGE AND AGREE THAT YOU ARE RESPONSIBLE FOR TAKING STEPS TO PROTECT AGAINST PRODUCT AND SYSTEM FAILURES, INCLUDING PROVIDING BACK-UP OR SHUTDOWN MECHANISMS. BECAUSE EACH END-USER SYSTEM IS CUSTOMIZED AND DIFFERS FROM NI'S TESTING PLATFORMS AND BECAUSE YOU MAY USE NI PRODUCTS IN COMBINATION WITH OTHER PRODUCTS IN A MANNER NOT EVALUATED OR CONTEMPLATED BY NI, YOU ARE ULTIMATELY RESPONSIBLE FOR VERIFYING AND VALIDATING THE SUITABILITY OF NI PRODUCTS FOR YOUR INTENDED USE. YOU WILL DEFEND, INDEMNIFY, AND HOLD HARMLESS NI AND ITS DIRECTORS, OFFICERS, EMPLOYEES, AND AGENTS FROM ANY AND ALL CLAIMS, LOSSES, DAMAGES, ACTIONS, AND EXPENSES (INCLUDING REASONABLE ATTORNEYS' FEES) ARISING OUT OF YOUR AUTHORIZED APPLICATION OR YOUR INCORPORATION OF THE SOFTWARE IN YOUR SYSTEM OR APPLICATION; PROVIDED, HOWEVER, THAT YOUR CONTRACTUAL OBLIGATION OF INDEMNIFICATION SHALL NOT EXTEND TO THE PERCENTAGE OF THE CLAIMANT'S DAMAGES OR INJURIES OR THE SETTLEMENT AMOUNT ATTRIBUTABLE TO NI'S NEGLIGENCE OR OTHER FAULT OR TO STRICT LIABILITY IMPOSED UPON NI AS A MATTER OF LAW.
+
+21.	U.S. Government Rights. The Software is a "commercial item" developed exclusively at private expense, consisting of "commercial computer software" and "commercial computer software documentation" as such terms are defined or used in the applicable U.S. acquisition regulations. If you are an agency, department, or other entity of the United States Government, the Software is licensed hereunder (i) only as a commercial item and (ii) with only those rights as are granted to all other licensees pursuant to the terms and conditions of this Agreement. You agree not to use, duplicate, or disclose the Software in any way not expressly permitted by this Agreement. Nothing in this Agreement requires NI to produce or furnish technical data for or to you. Manufacturer is National Instruments Corporation or National Instruments Ireland Resources Ltd.
+
+22.	Compliance
+
+A.	You agree to make, upon reasonable notice, all applicable records available for review by NI during normal business hours so as to permit NI to verify your compliance with the terms and conditions of this Agreement. NI may, upon written notice, inspect your use of the Software during normal business hours to ensure your compliance with this Agreement. Further, if you are a business or other entity, you agree that upon the request of NI or its authorized representative you will promptly document and certify in writing to NI that your and your employees' use of the Software complies with the terms and conditions of this Agreement. If the results of any such inspection indicate the underpayment by you of applicable fees due and payable to NI, you must immediately pay such amounts to NI and reimburse NI for the cost of such inspection.
+
+B.	You agree that the Software may collect and communicate certain software, hardware, and use information to NI or its service providers' servers for the purposes of (i) checking for and performing any updates; (ii) ensuring that you have complied and are complying with the terms and conditions in this Agreement, including your use of valid software key codes, hardware keys, or both; (iii) NI's internal product development; and (iv) providing usage reporting to you. The information collected and communicated does not include any proprietary application data. NI will not provide any of the information to any third party except as required by law or legal process or to enforce compliance with the terms in this Agreement, including your use of valid software key codes, hardware keys, or both.
+
+	The owner of the license may assign the license to an employee or third-party contractor (“Authorized User”) within the parameters of this Agreement. The owner is responsible for securing valid legal ground and/or authorization (as required) for collecting the data from any Authorized User to whom it assigns the license to be used on its behalf. If you are using the Software on behalf of an entity that has assigned the license to you as an Authorized User within the parameters of this Agreement, you are not the owner of the license. You understand and agree that data about your usage of the Software may be collected and provided to the owner of the license.
+
+	For further details on how NI and its affiliates process data, please see the applicable privacy statement at http://www.ni.com/legal/privacy/unitedstates/us/.
+
+23.	General
+
+A.	Governing Law; Venue
+
+If the Software is manufactured in the Republic of Ireland: This Agreement is governed by the laws of the Republic of Ireland, exclusive of any provisions of the United Nations Convention on the International Sale of Goods, and without regard to principles of conflicts of law. The non-exclusive venue for all actions under this Agreement will be in the courts located in Dublin, the Republic of Ireland, and the parties agree to submit to the jurisdiction of such courts.
+
+If the Software is not manufactured in the Republic of Ireland: This Agreement is governed by the laws of the State of Texas, U.S.A., exclusive of any provisions of the United Nations Convention on the International Sale of Goods, and without regard to principles of conflicts of law. The non-exclusive venue for all actions under this Agreement will be in the courts located in Travis County, Texas, U.S.A. and the parties agree to submit to the jurisdiction of such courts.
+
+If you are not sure where the Software is manufactured, please contact National Instruments Corporation, 11500 N. Mopac Expressway, Austin, Texas, U.S.A. 78759-3504 (Attention: Legal Department).
+
+B.	This Agreement constitutes the complete agreement between you and NI regarding use of the Software and supersedes any oral or written proposals, prior agreements, purchase orders, or any other communication between you and NI relating to the subject matter of this Agreement. NI's applicable standard Terms and Conditions of Sale, the current version of which is set forth at http://www.ni.com/legal/termsofsale, will apply to any technical support services provided as part of Software Services and to any Training & Certification Services; provided, however, as set forth herein the provisions of this Agreement may apply and control with respect to any upgrades or updates or other Software that may be provided as part of or in connection with any such services. No delay or omission by NI to exercise any right or power it has under this Agreement will impair or be construed as a waiver of such right or power. Any waiver by NI of a term of this Agreement must be in writing by NI. The waiver by NI of any breach of any provision hereof will not be construed to be a waiver of any succeeding breach of that provision or of any breach of any other provision. No modification of this Agreement will be effective unless set forth in a writing signed by a duly authorized representative of you and NI. The word "including" as used in this Agreement will be understood as meaning "including without limitation". If you are unable to access the internet to view any of the web pages referred to in this Agreement, you may request the information from your local NI sales office.
+
+C.	If any action is brought by either party to this Agreement against the other regarding the subject matter hereof, the prevailing party will be entitled to recover, in addition to any relief granted, reasonable attorneys' fees and court costs.
+
+D.	If any provision of this Agreement is held invalid, the offending clause will be modified so as to make it enforceable, as modified, and the remainder of this Agreement will continue in full force and effect.
+
+E.	Software is, and Third Party Software and Source Code may be, subject to control under the U.S. Export Administration Regulations (15 CFR Part 730 et. seq.), other applicable U.S. export control laws and regulations, and applicable global export control laws and regulations, including, for products exported from the European Union, the Council Regulation (EC) No. 428/2009. You represent and warrant that you are not ineligible or otherwise restricted by US or applicable law to receive any copies of the Software, Third Party Software, or Source Code. NI reserves the right not to ship or permit downloading of the Software ordered or otherwise fulfill an order for licenses (including under a Volume License Program or Enterprise Program) if, at any time, NI believes that such shipment or downloading of such Software, Third Party Software, or Source Code or other fulfillment may violate U.S. or other applicable export control laws. You agree that you will not export, re-export, or transfer any Software, Third Party Software, or Source Code in violation of any U.S. and applicable global export control laws and that you will not export, re-export, or transfer the Software, Third Party Software, or Source Code by any means to (i) any person or entity on OFAC's List of Specially Designated Nationals or on BIS's Denied Persons List, Entity List, or Unverified List, or any other applicable restricted party list or (ii) any prohibited destination, entity, or individual without the required export licenses or authorizations from the U.S. Government or other applicable export licensing authority. For text of the relevant legal materials, see http://www.ni.com/legal/export-compliance.htm.
+
+(c) 2001–2020 National Instruments. All Rights Reserved.
+
+370406AC-01
+
+February 2020
+
+
+
+ADDENDUM A - Source Code License
+
+1.	"Source Code" means the NI-created human-readable computer code that NI provides with the Software, that is not password protected, and that is in the preferred form for modifying the code (whether graphical or text-based). Source Code does not include any Third Party Software.
+
+2.	This license permits you to use, modify, and distribute the Source Code on the conditions that
+
+A.	you may distribute the Source Code, whether or not you have modified it, only
+
+i.	for a non-commercial purpose and
+
+ii.	under a license identical to this Source Code License;
+
+B.	you may distribute object code derived from the Source Code, whether or not you have modified it, for any purpose;
+
+C.	you maintain and do not minimize, block, or modify any titles, logos, trademarks, copyright, digital watermarks, disclaimers, or other notices that are included in the Source Code;
+
+D.	YOU AGREE THAT THE COPYRIGHT HOLDERS (I) PROVIDE THE SOFTWARE "AS IS" WITH ALL FAULTS (KNOWN AND UNKNOWN) AND WITHOUT ANY WARRANTY, REPRESENTATION, OR OTHER GUARANTEE OF ANY KIND AND (II) DISCLAIM ALL WARRANTIES, REPRESENTATIONS, AND OTHER GUARANTEES RELATING TO YOUR USE, MODIFICATION, OR DISTRIBUTION OF THE SOURCE CODE, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING ANY WARRANTY OF TITLE, IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT, AND ANY IMPLIED WARRANTY ARISING OUT OF COURSE OF DEALING, PERFORMANCE, OR TRADE USAGE;
+
+E.	YOU ASSUME ALL OF THE RISK AND LIABILITY ASSOCIATED WITH YOUR USE, MODIFICATION, OR DISTRIBUTION OF THE SOURCE CODE;
+
+F.	YOU AGREE THAT THE COPYRIGHT HOLDERS ARE NOT LIABLE TO YOU FOR, AND YOU AGREE NOT TO ASSERT ANY CLAIM AGAINST ANY COPYRIGHT HOLDER OR ITS DIRECTORS, OFFICERS, EMPLOYEES, OR AGENTS FOR, ANY DAMAGE, LOSS, OR OTHER PREJUDICE OF ANY KIND, HOWEVER CAUSED, AND ON ANY THEORY OF LIABILITY, INCLUDING CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE), THAT ARISES IN ANY WAY OUT OF THE USE, MODIFICATION, OR DISTRIBUTION OF THE SOURCE CODE, EVEN IF THE COPYRIGHT HOLDER WAS ADVISED OF THE POSSIBILITY OF ANY SUCH DAMAGE, LOSS, OR OTHER PREJUDICE, INCLUDING ANY DAMAGE, LOSS, OR OTHER PREJUDICE THAT (I) IS LOST PROFITS (WHETHER YOURS OR A THIRD PARTY'S); (II) ARISES OUT OF OR RELATES TO ANY TEMPORARY OR PERMANENT LOSS OF TANGIBLE PROPERTY (WHETHER REAL OR PERSONAL) OR INTANGIBLE PROPERTY (INCLUDING SOFTWARE AND DATA); OR (III) IS DIRECT, SPECIAL, INDIRECT, INCIDENTAL, CONSEQUENTIAL, COLLATERAL, EXEMPLARY, PUNITIVE, OR ANY OTHER DAMAGE; and,
+
+G.	you agree that these Sections 1-3 express the entire agreement between you and the copyright holders regarding your use, modification, and distribution of the Source Code.
+
+3.	The copyright holders reserve all of their rights. Except for the non-exclusive licenses expressly granted in Section 2, no rights or licenses are granted expressly, by implication, or otherwise.
+
+
+
+ADDENDUM B – Special License Types
+
+Evaluation License; Pre-Release Software
+
+If you have acquired an evaluation license, you may install and use the Software on one (1) computer in your workplace for internal evaluation purposes only and only for the limited period of the evaluation term.
+
+You may not distribute or transfer any applications you create with Software under an evaluation license. Any application created with Software acquired under an evaluation license is not an Authorized Application.
+
+You acknowledge and agree that the SOFTWARE IS EVALUATION ONLY AND MAY ALSO BE PRE-RELEASE SOFTWARE. AS SUCH, THE SOFTWARE MAY NOT BE FULLY FUNCTIONAL AND YOU ASSUME THE ENTIRE RISK AS TO THE RESULTS AND PERFORMANCE OF THE SOFTWARE. NI WILL NOT UPDATE THE SOFTWARE, NOR WILL NI SUPPORT THE SOFTWARE. Software provided under an evaluation license is provided without warranty OR OBLIGATION OF INDEMNITY ON NI. THE SOFTWARE MAY CONTAIN CODE THAT WILL, AFTER A CERTAIN TIME PERIOD, DEACTIVATE THE SOFTWARE AND RENDER THE SOFTWARE UNUSABLE, AND IT MAY DO SO WITHOUT WARNING. Upon such deactivation, this Agreement will be considered terminated. NI may in its sole discretion terminate the evaluation license at any time. If the Software consists of pre-release software and is also covered by a separate, written alpha/beta license (the "Beta Agreement") between you and NI, the terms and conditions of the Beta Agreement, which are incorporated herein by reference, will also apply to your use of the Software. In the event of a conflict between this Agreement and the Beta Agreement, the terms of the Beta Agreement will control.
+
+You agree to use reasonable efforts to provide feedback to NI regarding your use of the Software, including promptly reporting to NI errors or bugs that you might find. Any such feedback you disclose to NI, including any changes or suggested changes to NI's current or future products and services (collectively "Feedback"), will be received and treated by NI on a non-confidential and unrestricted basis, notwithstanding any restrictive or proprietary legends to the contrary accompanying or otherwise associated with the Feedback. You hereby grant to NI a worldwide, royalty-free, non-exclusive, perpetual, and irrevocable license to use, copy, and modify Feedback for any purpose, including incorporation or implementation of such Feedback into NI products or services, and to display, market, sublicense, and distribute Feedback as incorporated or embedded in any product or service distributed or offered by NI. The Feedback license set forth herein will survive expiration or termination of the Agreement.
+
+Compile-Only License (Measurement Studio)
+
+If you have acquired a Measurement Studio compile-only license, you must have also licensed a full version of Measurement Studio under a separate license with NI. The Measurement Studio compile-only license allows you to install the Measurement Studio Software on the number of computers in your workplace identified in the applicable documentation provided to you by NI or its authorized affiliate, including on a network device and run concurrently, provided that only your licensed applicable employee(s) may access or use the Measurement Studio Software on the network device and only up to the number of licenses specified in the documentation. You may only use the compile/build function of the Measurement Studio Software, and you may only perform that function on source code for your Authorized Application that references the Measurement Studio libraries. In no event may you use the Measurement Studio compile‑only license for development, including writing code that creates a new instance of a class defined in a Measurement Studio library or that calls a static method of a class defined in the Measurement Studio library.
+
+The home usage exception is not available for Measurement Studio under a compile-only license. Measurement Studio under a compile-only license is not transferable.
+
+Driver Interface Software
+
+If the Software is or contains Driver Interface Software, you may use the Software for your internal development of Authorized Applications. If you are a business or other entity, you may make and install a reasonable number of copies of the Driver Interface Software, other than NI-VISA or NI-488.2, as may be reasonably required for your internal development of Authorized Applications. You may not make additional copies of NI-VISA and NI-488.2 except for backup or archival purposes as expressly permitted in the Agreement or as expressly permitted by NI in writing. If you received the Driver Interface Software from a third party with or as part of an Authorized Application, then you may only use the Driver Interface Software with such Authorized Application.
+
+Multiple Access License (NI-488.2 Software for GPIB-ENET)
+
+If you have acquired a multiple access license, you may install and use the NI-488.2 Software on any number of computers or storage devices in your workplace solely for the purpose of accessing Ethernet to GPIB controllers. The limitation against using multiple versions of Software made available by NI on installation media or by download does not apply to the NI-488.2 software.
+
+You may transfer the license to a third party in the same country in which you purchased the license, or within the European Union if you purchased the license in the European Union, provided that you notify NI in writing of such transfer, including the name and location of such third party; such third party accepts the terms and conditions of this Agreement; and after such transfer you do not retain any copies of the Software, including any upgrades and updates that you may have received, nor retain any of the written materials accompanying the Software. NI may, in its discretion, charge you a fee for the transfer.
+
+Concurrent Use License
+
+If you have acquired a concurrent use license, you may install the Software on any or all computers at the physical location to which NI initially delivered the Software ("Site"). The Software may be used by all of your employees at the Site; provided, however, in no event may the number of authorized users who are accessing or running any of the Software at the same time exceed the maximum number of licenses you have purchased. You agree that you will also use a NI-approved volume license manager and the license file provided by NI that controls end-user access to the Software to ensure compliance with the foregoing.
+
+There is no home use exception for a concurrent use license. Concurrent use licenses are not transferrable.
+
+Debug License
+
+If you have acquired a debug license, you must have licensed the applicable software components (identified below as "Software Components Required") under a separate named user license, computer based license, or VLP license with NI, in which case your applicable employee(s) may now, under the debug license, install such software components on one (1) additional target production computer for each debug license acquired and for debug purposes only or, in the case of a concurrent debug license, in accordance with the use restrictions applicable to concurrent licenses and for debug purposes only.
+
+Debug License: NI TestStand
+
+Software Components Required:
+
+NI TestStand runtime execution engine for executing your sequences and the complete NI TestStand sequence editor development environment;
+
+one (1) copy of LabVIEW and the applicable software toolkits;
+
+one (1) copy of LabWindows/CVI and the applicable software toolkits;
+
+one (1) copy of Measurement Studio and the applicable software toolkits
+
+Debug License: NI TestStand Semiconductor Module
+
+Software Components Required:
+
+NI TestStand Semiconductor Module;
+
+NI TestStand runtime execution engine for executing your sequences and the complete NI TestStand sequence editor development environment;
+
+one (1) copy of LabVIEW and the applicable software toolkits;
+
+one (1) copy of LabWindows/CVI and the applicable software toolkits;
+
+one (1) copy of Measurement Studio and the applicable software toolkits
+
+Debug License: LabVIEW
+
+Software Components Required:
+
+one (1) copy of LabVIEW and the applicable software toolkits
+
+Debug License: LabWindows/CVI
+
+Software Components Required:
+
+one (1) copy of LabWindows/CVI and applicable software toolkits
+
+Debug License: Measurement Studio
+
+Software Components Required:
+
+one (1) copy of Measurement Studio and the applicable software toolkits
+
+Debug License: For each of the following software or any other software designated by NI as being software with respect to which NI offers a debug license, you must acquire a copy of the software for which the debug software was developed (for example, one copy of NI Switch Executive for the debug license for NI Switch Executive).
+
+NI Switch Executive
+
+LabVIEW Mobile Module
+
+LabVIEW Touch Panel Module
+
+LabVIEW Real-Time Module
+
+LabWindows/CVI Real-Time Module
+
+LabVIEW FPGA Module
+
+LabVIEW Control Design and Simulation Module
+
+LabVIEW Vision Development Module
+
+LabVIEW Statechart Module
+
+LabVIEW DSC Module
+
+LabVIEW DSP Module
+
+If you licensed the applicable software components under a license other than a concurrent use license, then each of the applicable components must be used on the same target production computer. In no event may you use components subject to a debug license for developing new programs (e.g., test sequences/modules, virtual instruments). Further, if you acquire any upgrade to the applicable software, your existing debug license cannot be used with such upgrade. Rather, you must acquire a separate, "upgraded" debug license from NI for use with such upgrade.
+
+There is no home usage exception for debug licenses.
+
+With the exception of concurrent debug licenses, you may transfer the debug license to a third party in the same country in which you purchased the license or within the European Union if you purchased the license in the European Union, provided that you notify NI in writing of such transfer, including the name and location of such third party; such third party accepts the terms and conditions of this Agreement; and after such transfer you do not retain any copies of the Software, including any upgrades and updates that you may have received, nor retain any of the written materials accompanying the Software. NI may, in its discretion, charge you a fee for the transfer of the license.
+
+Continuous Integration License (LabVIEW)
+
+If you have acquired a LabVIEW continuous integration license, you must have also licensed a full version of LabVIEW under a separate license with NI. The LabVIEW continuous integration license allows you to install the LabVIEW Software on the number of computers in your workplace identified in the applicable documentation provided to you by NI or its authorized affiliate, including on a network device and run concurrently, provided that only your licensed applicable employee(s) may access or use the LabVIEW Software on the network device and only up to the number of licenses specified in the documentation. You may only use the LabVIEW Software for the continuous integration activities of automated testing, automated validation, automated review, and automated build processes and any steps that are necessary in the pursuit and setup of these activities. In no event may you use the Software for development, with the exception of debugging the automation of continuous integration activities.
+
+The home usage exception is not available for LabVIEW under a continuous integration license. LabVIEW under a continuous integration license is not transferable.
+
+
+
+ADDENDUM C - Volume License Program Terms
+
+Volume License Program ("VLP"). The VLP is a program to assist customers in managing their licenses. The following terms apply to the VLP.
+
+1.	The quote you obtained from NI or its authorized affiliate regarding the VLP and the VLP Startup Kit ("VLP Documentation") is incorporated into this Agreement. In the event of a conflict between the terms and conditions of this Agreement and the VLP Documentation, the terms and conditions of this Agreement will control.
+
+2.	Term. The VLP will be effective the date that NI sends the VLP Startup Kit to you ("VLP Effective Date"). The initial term of the VLP will start on the VLP Effective Date and continue for a period of one (1) year (the "Initial VLP Term"). You may renew the VLP for additional one (1) year periods (the Initial VLP Term and each such renewal term each referred to herein as a "VLP Term").
+
+3.	Software under the VLP may be used by your employees only on those computers located at the physical location to which NI delivers the Software unless otherwise specified in the VLP Documentation (the "Site"). The definition of "Site" will also include all of your physical locations located within the same country as the Site. In addition, (i) if your Site is located in North or South America, then all of your physical locations within North and South America will be considered in the same country; (ii) if your Site is located in Europe, Middle East, India, or Africa (including Russia and Mongolia), then any of your physical locations within the foregoing regions will be considered in the same country; and (iii) if your Site is located in Asia Pacific, then all of your physical locations in the region will be considered located in the same country. If you purchase a global VLP, then all of your locations worldwide will be considered in the same country as the Site; provided, however, that the Software must be managed from the region to which NI delivers the Software. Your use of the Software under the VLP will, at all times during the VLP Term and thereafter, be subject to all terms and conditions set forth in the Agreement regarding the specific type of license you have acquired under the VLP (i.e. named user, computer-based, or concurrent).
+
+4.	You must acquire and maintain during the VLP Term the Software Services for each individual Software license identified in the VLP Documentation and for which NI makes such Software Services available. Software Services will be described in VLP Documentation. NI reserves the right to restrict Software Service to the then most current version of the Software that is commercially available. You understand that NI may not make available Software Service for all Software available under the VLP. Unless otherwise agreed to by NI in writing, you must maintain during the VLP Term a minimum of five (5) licenses to a version of a single NI software product that is considered by NI to be a development version.
+
+5.	You must designate an individual in your organization who is responsible for distributing and overseeing the installation and use of the Software, including use of any master installation media and any approved volume license manager, ("Software Administrator") for each Site. You must promptly notify NI in writing of any changes to a Software Administrator.
+
+6.	NI will deliver the master installation for the Software and, if provided for in the applicable written quotation from NI or its authorized affiliate, make available NI's volume license manager to the Software Administrator(s) for internal installation and use by your employees. Software documentation is provided in electronic form only and comes with the master installation for the Software.
+
+7.	You are responsible for ensuring that an Approved Volume License Manager, together with the most current license file provided by NI that controls end-user access to the Software (to the extent NI has made the Software compatible with an Approved Volume License Manager) is in use at all times, during the term of the VLP and thereafter, with the Software. An "Approved Volume License Manager" means NI's computer software for controlling end user access to the Software and that generates applicable usage compliance information ("NI VLM"); FLEXnet or FLEXlm software; or any other third party software approved in writing by NI for controlling end user access to the Software. If the Approved Volume License Manager is the NI VLM or if NI makes documentation available for the applicable Approved Volume License Manager, such Approved Volume License Manager must be installed and used in accordance with the documentation provided by NI.
+
+8.	If you have existing computer-based or named user licenses for the Software that are to be covered by the VLP, you must notify NI in writing of the product, platform, and serial number information for each such license. Each such license and the individual serial number for each license will, as of the VLP Effective Date, no longer be in effect and will be superseded by the licenses within the VLP, which will have a single, common serial number. You must provide NI with information reasonably requested by NI in order to establish and administer the VLP.
+
+9.	Concurrent Use License. If you have obtained a concurrent use license under the VLP, you will be bound by the terms for concurrent use licenses, except that the “Site” for the licenses shall be as defined in this Addendum for licenses under a VLP. If you have purchased a global concurrent license, then all of your locations worldwide will be considered in the same country as the Site.
+
+10.	You acknowledge and agree that in no event may your use of the Software under the VLP exceed the maximum total number of licenses set forth in the VLP Documentation in addition to any licenses that may be added to the VLP after the VLP Effective Date and any licenses available through the "Overdraft" feature. You agree to pay for licenses accessed through the Overdraft feature.
+
+11.	Activity Compliance Logs. Upon request, you agree to provide an activity compliance log ("Activity Compliance Log") for each Site to NI promptly. The Activity Compliance Log must be in a format acceptable to NI.
+
+12.	Renewals. If you desire to renew the VLP, you must provide a current Activity Compliance Log to NI at least sixty (60) days before the end of the then current VLP Term. NI or its authorized affiliate will then provide you with a quote for Software Services, any fees for additional VLP licenses added during the VLP Term, including through the "Overdraft" feature, that are applicable ("Additional VLP Fees"), and any fees for new VLP licenses that you request for the renewal VLP Term (the "VLP Renewal Fees"). You must promptly notify NI if the information in the Activity Compliance Log regarding the number of VLP licenses in use changes following your submission, and NI reserves the right to revise the VLP Renewal Fees to reflect any additional VLP licenses used and not reflected in the applicable Activity Compliance Log that you provided to NI at the time you renewed. IF, PRIOR TO THE END OF THE THEN CURRENT VLP TERM, YOU DO NOT ISSUE A PURCHASE ORDER FOR THE SOFTWARE SERVICES AND ANY ADDITIONAL VLP FEES THAT ARE DUE, (I) THE VLP WILL AUTOMATICALLY TERMINATE AT THE END OF THE CURRENT VLP TERM AND (II) ALL SOFTWARE SERVICES FOR THE VLP WILL AUTOMATICALLY AND IMMEDIATELY TERMINATE AT THE END OF THE THEN CURRENT VLP TERM.
+
+13.	Purchase Orders; Invoices. You must submit purchase orders to NI or its authorized affiliate as follows.
+
+i.	for initial activation of the VLP: in the amount specified in the applicable written quotation from NI or its authorized affiliate for initial activation of the VLP license and the initial annual user fee for Software Services within the time-frame specified in the quote provided to you
+
+ii.	for each renewal term: in the amount of VLP Renewal Fees and any Additional VLP Fees prior to the end of the then current VLP Term
+
+14.	Software Services are charged on an annual basis. Additional VLP Fees will be pro-rated on a quarterly basis, based on the quarter of the VLP Term in which the Software under such VLP license was first used or such shorter basis as NI may designate.
+
+15.	THE SOFTWARE AND THE APPROVED VOLUME LICENSE MANAGER MAY CONTAIN CODE THAT WILL, FOLLOWING TERMINATION OF THE VLP, DEACTIVATE YOUR ABILITY TO USE THE SOFTWARE UNDER THE VLP. NI MAY ATTEMPT TO PROVIDE YOU WITH AN UPDATED LICENSE FILE, BUT IT IS YOUR RESPONSIBILITY TO OBTAIN SUCH LICENSE FILE FROM NI AND TO INSTALL AND USE THE LICENSE FILE AS SOON AS POSSIBLE AFTER DELIVERY OF SUCH LICENSE FILE, BUT IN NO EVENT NO LATER THAN SIXTY (60) DAYS AFTER THE TERMINATION OF THE VLP. Upon termination of the VLP, you may continue to use the VLP licenses in effect and for which you have paid the required fees to NI or its authorized affiliate prior to the date of termination (the "Surviving VLP Licenses"), provided that all such use is conducted with an Approved Volume License Manager and otherwise pursuant to the terms and conditions of the Agreement. IN NO EVENT MAY YOU INCREASE THE NUMBER OF THE SURVIVING VLP LICENSES FOLLOWING THE TERMINATION OF THE VLP. ANY REACTIVATION OF THE VLP FOLLOWING ITS TERMINATION WILL BE AT THE SOLE DISCRETION OF NI AND MAY BE SUBJECT TO REACTIVATION FEES, AND THE VLP EFFECTIVE DATE THEREAFTER WILL BE THE DATE THAT THE VLP IS REACTIVATED BY NI.
+
+16.	You may obtain individual serial numbers for any of the VLP licenses or Surviving VLP Licenses. There may be a charge for conversion. No more than four (4) such conversions may occur per calendar year.
+
+17.	Software under a VLP license or a Surviving VLP License is non-transferable and you may not, without the prior written consent of NI or its authorized affiliate, distribute or otherwise provide the Software to any third party or to any of your sites or facilities not expressly identified in the applicable documents from NI.
+
+
+
+ADDENDUM D - Enterprise Program Terms
+
+Enterprise Program ("EP"). The following terms apply to the EP.
+
+1.	NI or its authorized affiliate and you will enter into NI Enterprise Program documentation ("EP Documentation") that, among other things, identifies the Software items that are covered under the EP; the types and maximum number of your licenses for such Software during the term of the EP; the types and maximum number of any licenses that you will obtain on expiration of the EP term; any of your pre-existing licenses that will be converted to licenses under your EP ("EP Pre-Existing Licenses") and any Software Services that are included. The EP Documentation is incorporated into this Agreement; provided, however, if there is a conflict between the terms and conditions of this Agreement and the EP Documentation, the terms and conditions of this Agreement will prevail and control.
+
+2.	Term. The EP will be effective on the date set forth in the EP Documentation or, if not specified, the date that the EP Documentation is signed by NI or its authorized affiliate and sent to you (the "EP Effective Date"). The EP will continue for such term as set forth in the EP Documentation or, if not specified, for three years after the EP Effective Date ("EP Term").
+
+3.	You must designate an individual in your organization who is responsible for distributing and overseeing the installation and use of the Software, including use of any master installation media and any approved volume license manager, ("Software Administrator") for each EP Location. You must promptly notify NI in writing of any changes to a Software Administrator.
+
+4.	Software may be used under the EP (i) solely in accordance with the terms and conditions set forth in this Agreement regarding the specific type of license applicable to such license type acquired under the EP; (ii) solely at, and on computers located at, the locations designated in the EP Documentation ("EP Locations"); and (iii) solely during the EP Term. You acknowledge and agree that (i) in no event may your use of the Software under the EP exceed the maximum total number of licenses set forth in the EP Documentation and (ii) no NI software (including any copies of the Software) other than the copies of the Software expressly identified in the EP Documentation may be used by you under the EP.
+
+5.	You must use, at all times, an Approved Volume License Manager with the most current license file provided to you by NI that controls end-user access to the Software licensed pursuant to the EP. An "Approved Volume License Manager" means NI's computer software for controlling end user access to the Software and that generates applicable usage compliance information ("NI VLM"); FLEXnet or FLEXlm software; or any other third party software approved in writing by NI for controlling end user access to the Software. If the Approved Volume License Manager is the NI VLM or if NI makes documentation available for the applicable Approved Volume License Manager, such Approved Volume License Manager must be installed and used in accordance with the documentation provided by NI.
+
+6.	Training & Certification Services. If the services to be provided under your EP include software training classes or "certification preparation" courses and certification testing services for NI software ("Training & Certification Services"), you may use available training credits during the EP Term for your employees to attend applicable training classes regarding the use of the Software or to receive applicable "certification preparation" courses and certification testing services from NI, as specified in the EP Documentation. Training & Certification Services will be provided in accordance with NI's then-current standard policies for software training and certification. Training credits may not be used for customized training that would constitute a "defense service" as defined by International Traffic in Arms Regulations 22 CFR 120.9. Training credits have no cash value and any unused training credits will expire upon termination or expiration of your EP or such other term set forth in the EP Documentation.
+
+7.	Software Services. If the services to be provided under the EP include Software Services, then NI will provide (i) your Software Administrator a master copy of all upgrades after the applicable commercial release date and (ii) the number of your users designated in the EP Documentation with access to NI's application engineers for issues involving the installation and use of the Software and with access to NI's customer on-line technical support system. All services will be provided in accordance with NI's then current standard software maintenance and support policies. NI reserves the right to restrict Software Services to the then most current version of the Software that is commercially available. You understand that NI may not make available Software Services for all Software available under the EP.
+
+8.	No Hardware or Hardware Services. You acknowledge and agree that no hardware or hardware-related services are being provided or otherwise made available by NI under the EP.
+
+9.	Annual Management Review; Reports
+
+A.	Upon such periodic basis as set forth in the EP Documentation (but at least annually), your representatives must meet with NI's representatives to discuss the EP and your use of the EP, including evaluating usage of the NI Software and any training credits under the EP and determining the adequacy of licensing levels and number of EP Locations under the EP.
+
+B.	Thirty (30) days prior to the meeting referenced in sub-section A above or upon such other reasonable basis as NI may request, you must provide NI with (i) an activity compliance log identifying requests for permission to use the Software in a format acceptable to NI ("Activity Compliance Logs") for each of the EP Locations and (ii) a usage log showing check-outs and check-ins of the Software ("Usage Log") as generated by the Approved Volume License Manager for the Software at the EP Locations.
+
+10.	EP Fees. The fees that will be charged to you in connection with the EP are set forth in the EP Documentation. Unless set forth otherwise in the EP Documentation, all amounts to be paid by you under the EP will be in U.S. dollars. Amounts set forth in the EP Documentation do not include applicable taxes or import/export duties, and all taxes and other duties relating to any deliverables provided by NI under the EP will be your responsibility and be borne by you. If you acquire a business that has current NI software licenses that you wish to include in the EP, then the fees that may be charged to you in connection with the EP may be increased.
+
+	11.	Termination
+
+A.	Either NI or you may in each's discretion terminate the EP upon written notice to the other party, if such other party is in material breach of any of its obligations under these Enterprise Program Terms and such breach has not been cured to the reasonable satisfaction of the non-breaching party within thirty (30) days of receiving written notice of such breach, provided that if the breach is not capable of cure the EP Term will terminate immediately.
+
+B.	Effect of EP Expiration or Termination. Upon expiration or termination of the EP, you must stop immediately all use of the Software under the EP and you must destroy all copies of the Software, provided however that you must deliver the Software and all copies to NI if NI has so demanded prior to such destruction. Notwithstanding the foregoing, with respect to any licenses from NI for Software covered by the EP that were in effect before the EP Effective Date and that are identified as Pre-Existing NI Software in the EP Documentation ("EP Pre-Existing Software"), if the EP is terminated by NI based on a breach only of the terms set forth in these Enterprise Program Terms and not based on a failure to comply with any other term of the Agreement, you may use such number of copies of EP Pre-Existing Software as may be designated in the EP Documentation for the post-EP Term, solely at the EP Locations, and pursuant to, and solely in accordance with, the software license agreements that accompany the software. With respect to any copies of the EP Pre-Existing Software that are designated in the EP Documentation for post-EP Term use and that were either the most current version or the immediately prior version of the Software as of the EP Effective Date, provided that the EP Term was not terminated by NI, you may elect to upgrade such copies to the current version of the applicable Software as of the effective date of termination or expiration of the EP Term for use by you solely in accordance with this Section.
+
+C.	Your right to use EP Pre-Existing Software after the EP Term is contingent on your providing NI with the Activity Compliance Logs and Usage Logs within thirty (30) days of the expiration or termination of the EP Term and immediately paying to NI all amounts due but not paid as of the expiration or termination of the EP Term.
+
+D. 	THE SOFTWARE AND THE APPROVED VOLUME LICENSE MANAGER MAY CONTAIN CODE THAT WILL, FOLLOWING EXPIRATION OR TERMINATION OF THE EP TERM, DEACTIVATE YOUR ABILITY TO USE THE SOFTWARE UNDER THE EP. YOU ACKNOWLEDGE AND AGREE THAT THE SOFTWARE MAY BE AUTOMATICALLY DEACTIVATED OR RENDERED UNUSABLE WITHOUT WARNING UPON THE EXPIRATION OR TERMINATION OF THE EP. IT IS YOUR RESPONSIBILITY TO OBTAIN ANY NECESSARY LICENSE FILES FROM NI TO ENABLE ANY PERMITTED POST-EP TERM USE OF EP PRE-EXISTING SOFTWARE AS DESIGNATED IN THE EP DOCUMENTATION. YOU MUST INSTALL AND USE THE LICENSE FILE AS SOON AS POSSIBLE AFTER DELIVERY OF SUCH LICENSE FILE BY NI, BUT IN NO EVENT NO LATER THAN SIXTY (60) DAYS AFTER THE TERMINATION OF THE EP TERM.
+
+12.	Licenses under the EP are non-transferable and you may not, without the prior written consent of NI or its authorized affiliate, distribute or otherwise provide the Software to any third party or to any of your sites or facilities other than EP Locations.
+
+13.	Confidentiality. The terms of your EP Documentation; any proposals or other documents submitted by NI or its authorized affiliate in connection with your EP (including all pricing and fees); and any information about NI product development efforts provided in connection with your EP are considered the confidential information of NI. You must not disclose any NI confidential information to any third party.
+
+
+
+ADDENDUM E - Academic License Terms
+
+1.	Software under any of the academic license types may not be used for commercial or industrial purposes. Only software licenses subject to the academic research terms may be used for research purposes.
+
+2.	Authorized Applications developed using Software subject to an academic license may not be distributed for commercial purposes and must be distributed with a prohibition against redistribution for commercial purposes.
+
+3.	An "Academic Institution" is a degree-granting educational institution. For purposes of Student Edition licenses, an Academic Institution may also be an online education course in which the teacher is recommending or requiring the use of the Software and that has been approved by NI.
+
+4.	Student Edition License. If the Software is a student edition, you must be a student enrolled in or taking continuing education classes or an instructor teaching at an Academic Institution in order to use the Software. If you are a student, you may use the Software for your personal education purposes, which may include use for classroom or lab coursework as well as academic research that is in furtherance of your undergraduate work, and not for any other purpose. If you are an instructor, you may use the Software for your preparation for classroom or lab coursework and not for any other purpose, such as academic research or classroom instruction regarding the use of the Software. You may install the Software on up to three (3) physical computers; provided, however, only you may use or otherwise run the Software and the Software may only be launched on one computer at a time. You may not install any of the Software on a network device from which the Software may be accessed and used by anyone other than you. There is no home usage exception for student edition licenses. You hereby understand and agree that your license will automatically expire upon the conclusion or termination of your enrollment in the Academic Institution, if you are a student; at such time as you stop being an instructor, if you are an instructor; or at the end of the term of the license, whichever comes first. Upon any such expiration, you must promptly uninstall all copies of the Software.
+
+	Secondary schools also may use LabVIEW student edition software, subject to the terms of the Secondary School License set forth in Section 5.
+
+	Student Edition licenses (perpetual or term) do not include individual access to the Standard Service Program (“SSP”) for Software.
+
+5.	Secondary School License. If you have acquired a secondary school license, you may use the Software solely for educational purposes in your secondary school. Secondary schools are defined as levels K–12 and International Standard Classification of Education (ISCED) levels 0–3. You may install the Software on no more than the number of your school's computers specified by NI or its authorized affiliate in writing in the applicable quote. The foregoing rights apply to a single school or campus (as specified by NI or its authorized affiliate in writing in the applicable quote) and do not extend to an entire school district.
+
+6.	Teaching License. If you have acquired an academic teaching license, you may use the Software solely for instructional purposes at an Academic Institution. A use will be considered as one for "instructional purposes" only if such use meets either of the following criteria: (i) a common exam is given to students at the end of a semester or other academic period and the exam relates (in whole or part) to the students' use of the Software or (ii) homework or similar projects requiring the use of the Software are used for grading in lieu of an exam. You may install the Software on no more than the number of your Academic Institution's computers located within the applicable department, college, or specific university campus located at the physical location to which NI delivers the software as specified by NI or its authorized affiliate in writing in the applicable quote, unless otherwise specified in the applicable quote. Without limiting the foregoing, any use of the Software by any person who is not an instructor at your Academic Institution is prohibited.
+
+7.	Research License. If you have acquired an academic research license, you may use the Software solely for academic research at an Academic Institution. You may install the Software on no more than the number of your Academic Institution’s computers located within the applicable department, college, or specific university campus located at the physical location to which NI delivers the Software as specified by NI or its authorized affiliate in writing in the applicable quote, unless otherwise specified in the applicable quote.
+
+8.	Combined teaching and research licenses are subject to the terms and conditions of both teaching licenses and research licenses.
+
+9.	Student Install Option
+
+A.	If you are an Academic Institution and have acquired Student Install Option licenses, NI will deliver to you the master installation for the applicable Software. You may make the Software (including updates or upgrades) available to no more than the number of students specified by NI or its authorized affiliate in writing in the applicable quote, only to the students located at the physical location to which NI delivers the Software, and only during the time period specified in the quote, and each student must be currently enrolled at the applicable department, college, or specific university campus of your Academic Institution specified in writing in the applicable quote. Each license provided through the Student Install Option included with the Academic Institution’s Software Services will be for a one (1) year term.
+
+B.	If you are a student and have acquired a license to use Software through your Academic Institution’s Student Install Option, you must be a student enrolled in or taking continuing education classes in order to use the Software. You may use the Software for your personal education purposes, which may include use for classroom or lab coursework as well as academic research that is in furtherance of your undergraduate work, and not for any other purpose. You may install the Software on up to three (3) physical computers; provided, however, only you may use or otherwise run the Software and the Software may only be launched on one computer at a time. You may not install any of the Software on a network device from which the Software may be accessed and used by anyone other than you. There is no home usage exception. You hereby understand and agree that your license will automatically expire upon the conclusion or termination of your enrollment in the Academic Institution or at the end of the term of the license, whichever comes first. Upon any such expiration, you must promptly uninstall all copies of the Software.
+
+C.	Licenses provided through the Student Install Option do not include individual student access to all entitlements of the Standard Service Program (“SSP”) for Software.
+
+10.	Academic Site License (“ASL”). The following terms apply to the ASL.
+
+A.	The quote you obtained from NI or its authorized affiliate regarding the ASL (“ASL Documentation”) is incorporated into this Agreement. In the event of a conflict between the terms and conditions of this Agreement and the ASL Documentation, the terms and conditions of this Agreement will control.
+
+B.	Term. The ASL will be effective the date of your order (“ASL Effective Date”). If you have purchased an ASL with term licenses, the initial term of the ASL will start on the ASL Effective Date and continue for a period of one (1) year, unless a longer term is specified in the ASL Documentation. If no term is specified in the ASL Documentation, the licenses under the ASL (not including Student Install licenses) will be perpetual.
+
+C.	Software under the ASL may be used by teachers, researchers, and students in accordance with the terms of the license types set forth in this Addendum E and the ASL Documentation and only on those computers located at the physical location to which NI delivers the Software unless otherwise specified in the ASL Documentation.
+
+	Unless otherwise specified in the ASL Documentation, ASL coverage boundaries are as follows.
+
+Small: Software in the ASL is accessible to up to 50 users or computers within an Academic Institution
+
+Medium: Software in the ASL is accessible to up to 100 user or computers within an Academic Institution
+
+Large: Software in the ASL is accessible on up to 250 users or computers within an Academic Institution
+
+The location at which you are permitted to use the Software is the “ASL Location”.
+
+	ASL licenses are for teaching, research, or teaching and research, as specified in the ASL Documentation.
+
+D.	You must designate an individual in your organization who is responsible for distributing and overseeing the installation and use of the Software, including use of any master installation media and any approved volume license manager, ("Software Administrator") for each ASL Location. You must promptly notify NI in writing of any changes to a Software Administrator. NI will deliver the master installation for the Software to the Software Administrator for internal installation and use by your teachers, researchers, and students, as appropriate. Software documentation is provided in electronic form only and comes with the master installation for the Software.
+
+E.	Software Services. If Software Services have been purchased for or are provided with the ASL, NI will provide your Software Administrator a master copy of all upgrades after the applicable commercial release date. All services will be provided in accordance with NI's then current standard software maintenance and support policies. NI reserves the right to restrict Software Services to the then most current version of the Software that is commercially available. You understand that NI may not make available Software Services for all Software available under the ASL. Software Services will be described in ASL Documentation.
+
+	Software Services are included with ASL with term licenses. Perpetual licenses under an ASL come with one (1) year of Software Services; Software Services for perpetual licenses under an ASL must be purchased separately after the first year. Software Services shall be effective for the period specified in ASL Documentation.
+
+	Software Services for the ASL may include Student Install Option licenses, as indicated in the ASL Documentation. Licenses provided through the Student Install Option do not include individual student access to all entitlements of the Standard Service Program (“SSP”) for Software.
+
+F.	You acknowledge and agree that in no event may your use of the Software under the ASL exceed the maximum number of licenses set forth in the ASL Documentation or otherwise exceed the boundaries set forth in the ASL Documentation.
+
+11.	Transfer. Except for academic research licenses, academic licenses are nontransferable and you may not, without the prior written consent of NI or its authorized affiliate, distribute or otherwise provide the Software to any third party or to any of your sites or facilities not expressly identified in the applicable documents from NI. The Academic Institution may transfer an academic research only ASL to the researcher to whom the license originally was assigned, provided that (i) the Academic Institution notifies NI in writing of such transfer, including the name and new location of the researcher; (ii) the researcher accepts the terms and conditions of this Agreement; and (iii) after such transfer the Academic Institution must stop immediately the use of software under the transferred academic research only ASL.
+
+ADDENDUM F – Product-Specific Provisions
+
+TestStand Development System License,
+
+TestStand Custom Sequence Editor License
+
+If you have acquired a computer-based NI TestStand Development System License or NI TestStand Custom Sequence Editor License, you may not remotely access the Software. If you have acquired a named user NI TestStand Development System License or NI TestStand Custom Sequence Editor License, only the then-current Named User may remotely access the Software.
+
+Measurement Studio
+
+Any application created with Measurement Studio Software that uses any Measurement Studio controls in a "design time" context is not an Authorized Application.
+
+LabVIEW Community Edition and LabVIEW NXG Community Edition
+
+If you have acquired a license to LabVIEW Community Edition or LabVIEW NXG Community Edition, you may use the Software solely for your personal, non-commercial, non-industrial purposes. You may not use the Software for teaching or research at a degree-granting educational institution. You may use the Software only for the limited period of the license term specified in the product description, other applicable documentation provided to you by NI, or within the Software itself. The license will expire automatically at the end of such term.
+
+A license to the Software may not be converted to a computer-based license and the license is not transferable.
+
+You may distribute or transfer applications you create with Software, but only if you comply with the terms of the Agreement regarding distribution of Authorized Applications and such distribution of the Deliverables is for non-commercial, non-industrial, and if you are a degree-granting educational institution non-teaching and non-research, purposes only.
+
+You may distribute source code that you have created with the Software only for non-commercial, non-industrial, and if you are a degree-granting educational institution for non-teaching and non-research, purposes only.
+
+Except for the limited distribution rights set forth in this license, in no event may you distribute any software or code created with the Software.
+
+Notwithstanding the terms set forth in the Agreement or Source Code License, you may distribute Source Code (as defined by the Source Code License), whether or not you have modified it, only for a non-commercial, non-industrial, and if you are a degree-granting educational institution for non-teaching and non-research, purpose; you may not distribute object code derived from Source Code. All other terms set forth in the Source Code License shall apply to you.
+
+Use of the Software requires that you create an NI user account and periodically log in to your NI user account from within the Software program in order to validate the Software and allow you to exercise your rights under this Agreement. If NI cannot periodically validate the Software, then the Software may become inactive without additional notice until NI validates the license. During activation and login, as well as any periodic validation, data about your NI user account, the Software, and the computer on which you are using the Software may be transmitted to NI. Any personal data so transmitted will be processed in accordance with, and for the purposes described in, NI's Privacy Statement (http://www.ni.com/pdf/legal/us/privacy.pdf), including but not limited to the section entitled "Software Activation" and, if applicable, the country-specific privacy statement you agreed to in setting up your NI user account.
+
+YOU ASSUME THE ENTIRE RISK AS TO THE RESULTS AND PERFORMANCE OF THE SOFTWARE. SOFTWARE IS PROVIDED WITHOUT WARRANTY OR OBLIGATION OF INDEMNITY ON NI. THE SOFTWARE MAY CONTAIN CODE THAT WILL, AFTER A CERTAIN TIME PERIOD, DEACTIVATE THE SOFTWARE AND RENDER THE SOFTWARE UNUSABLE, AND IT MAY DO SO WITHOUT WARNING. Upon such deactivation, this Agreement will be considered terminated. NI may in its sole discretion terminate the license at any time.
+
 .SH BUGS
 No known bugs.
+
 .SH AUTHOR
 National Instruments Corporation
-
