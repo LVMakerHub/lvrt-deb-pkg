@@ -18,7 +18,7 @@ fi
 
 PKG_NAME=lvrt20-schroot
 PKG_VER=20.0.0
-PKG_REV=3
+PKG_REV=4
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 REPO_DIR=debian
 
