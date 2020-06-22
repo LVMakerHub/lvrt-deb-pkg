@@ -60,7 +60,7 @@ echo "Mounting image..."
 LOOP_FILE=`losetup -f -P --show $TMP_DIR/$IMAGE_FILE`
 echo $LOOP_FILE
 LOOP_PART_FILE=$LOOP_FILE"p2"
-if [ -e LOOP_PART_FILE ]; then
+if [ -e $LOOP_PART_FILE ]; then
 	# rootfs should be in the second partition - in RPi case
 	echo $LOOP_PART_FILE
 	mount $LOOP_PART_FILE -o rw $MNT_DIR
