@@ -12,6 +12,7 @@ import os
 import socket
 import threading
 import time
+import subprocess
 
 HOST_NAME = ''
 PORT_NUMBER = 3580
@@ -22,7 +23,18 @@ RESTART_RETRY_DELAY = 1
 def getIP():
 	retVal = socket.gethostbyname(socket.getfqdn())
 	if retVal.startswith("127."):
-		# this returned localhost's IP
+		# localhost's IP was returned
+		# try an alternative approach
+		try:
+			ips = subprocess.check_output('hostname -I', shell=True)
+			if len(ips) != 0:
+				retVal = ips.strip().split()[0]
+			else:
+				print('getIP() - 1st try failed')
+		except:
+			print("getIP(): exception occurred with 'hostname -i':" + ips)
+	if retVal.startswith("127."):
+		# we still didn't get the IP
 		# try an alternative that requires an internet connection
 		try:
 			s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -30,8 +42,8 @@ def getIP():
 			retVal = s.getsockname()[0]
 			s.close()
 		except:
-			# if all else fails, fall back to the hostname
-			retVal = socket.getfqdn()
+			print('getIP() - 2nd try failed')
+			retVal = '0.0.0.0'
 	return retVal
 
 def restartLV():
