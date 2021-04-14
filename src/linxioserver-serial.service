@@ -5,5 +5,5 @@ After=labview.service
 
 [Service]
 Type=simple
-ExecStart=/usr/sbin/chroot /var/lib/schroot/mount/lv /usr/bin/linxioserver -serial 0
+ExecStart=/usr/sbin/chroot /run/schroot/mount/lv /usr/bin/linxioserver -serial 0
 
