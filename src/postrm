@@ -12,6 +12,9 @@ CHROOTPATH=/srv/chroot/labview
 RESOLVPATH=$CHROOTPATH/etc/resolv.conf
 rm -f $RESOLVPATH
 
+SSLCERTPATH=$CHROOTPATH/etc/ssl/certs/ca-certificates.crt
+rm -f $SSLCERTPATH
+
 UPDATECERTPATH=$CHROOTPATH/usr/bin/update-ca-certificates
 rm -f $UPDATECERTPATH
 

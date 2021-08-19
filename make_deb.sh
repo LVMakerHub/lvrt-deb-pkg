@@ -16,9 +16,9 @@ if [ ! -f "$IMAGE_TAR" ]; then
 	exit 1
 fi
 
-PKG_NAME=lvrt20-schroot
-PKG_VER=20.0.0
-PKG_REV=4
+PKG_NAME=lvrt21-schroot
+PKG_VER=21.0.0
+PKG_REV=1
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 REPO_DIR=debian
 
@@ -48,7 +48,8 @@ cp src/linxioserver-tcp.service $SYSTEMD_SERVICE_DIR/
 cp src/linxioserver-serial.service $SYSTEMD_SERVICE_DIR/
 
 # Add NI Sys Web Server emulator script
-cp src/NISysServer.py $PKG_DIR/usr/sbin/.
+cp src/NISysServer.py $PKG_DIR/usr/sbin/
+chmod 755 $PKG_DIR/usr/sbin/NISysServer.py
 
 # Create schroot configuration
 cp -r src/schroot $PKG_DIR/etc/

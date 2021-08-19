@@ -1,18 +1,6 @@
 #!/bin/sh
 # postinst script for lvrt-schroot
 
-# enable systemd unit files both in the running and offline/container cases
-if [ -d /run/systemd/system ]; then
-	systemctl daemon-reload
-	systemctl enable nisysserver.service
-	systemctl start nisysserver.service
-	systemctl enable labview.service
-	systemctl start labview.service
-elif [ -x "/usr/bin/deb-systemd-helper" ]; then
-	deb-systemd-helper enable nisysserver.service
-	deb-systemd-helper enable labview.service
-fi
-
 # Check for the existence if liblinxdevice
 # and add a symlink to the appropriate version
 CHROOTPATH=/srv/chroot/labview
@@ -33,7 +21,13 @@ AVAHISVC=/etc/avahi/services/lvrt.service
 ln -sf /usr/sbin/update-ca-certificates $CHROOTPATH/usr/bin/update-ca-certificates
 
 # make sure resolv.conf exists; this will make schroot able to bind mount to it
+rm -rf $CHROOTPATH/etc/resolv.conf
 touch $CHROOTPATH/etc/resolv.conf
+
+# make sure /etc/ssl/certs/ca-certificates.crt exists; this will make schroot able to bind mount to it
+mkdir -p -m755 $CHROOTPATH/etc/ssl/certs
+rm -rf $CHROOTPATH/etc/ssl/certs/ca-certificates.crt
+touch $CHROOTPATH/etc/ssl/certs/ca-certificates.crt
 
 if [ -e $CHROOTPATH$RPI2LINXPATH ]; then
 	# Raspberry Pi 2
@@ -51,7 +45,6 @@ if [ -e $CHROOTPATH$RPI2LINXPATH ]; then
 		test -x $CHROOTPATH/$USRBINPATH/linxtcpserver-rpi && ln -sf linxtcpserver-rpi $CHROOTPATH/$USRBINPATH/linxtcpserver
 		test -x $CHROOTPATH/$USRBINPATH/linxserialserver-rpi && ln -sf linxserialserver-rpi $CHROOTPATH/$USRBINPATH/linxserialserver
 		test -x $CHROOTPATH/$USRBINPATH/linxioserver-rpi && ln -sf linxioserver-rpi $CHROOTPATH/$USRBINPATH/linxioserver
-		exit 0
 	fi
 fi
 
@@ -69,6 +62,17 @@ if [ -e $CHROOTPATH$BBLINXPATH ]; then
 		test -x $CHROOTPATH/$USRBINPATH/linxtcpserver-bb && ln -sf linxtcpserver-bb $CHROOTPATH/$USRBINPATH/linxtcpserver
 		test -x $CHROOTPATH/$USRBINPATH/linxserialserver-bb && ln -sf linxserialserver-bb $CHROOTPATH/$USRBINPATH/linxserialserver
 		test -x $CHROOTPATH/$USRBINPATH/linxioserver-bb && ln -sf linxioserver-bb $CHROOTPATH/$USRBINPATH/linxioserver
-		exit 0
 	fi
+fi
+
+# enable systemd unit files both in the running and offline/container cases
+if [ -d /run/systemd/system ]; then
+	systemctl daemon-reload
+	systemctl enable nisysserver.service
+	systemctl start nisysserver.service
+	systemctl enable labview.service
+	systemctl start labview.service
+elif [ -x "/usr/bin/deb-systemd-helper" ]; then
+	deb-systemd-helper enable nisysserver.service
+	deb-systemd-helper enable labview.service
 fi
