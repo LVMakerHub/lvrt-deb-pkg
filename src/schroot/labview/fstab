@@ -27,3 +27,5 @@
 
 # Add resolv.conf so that it is always updated from the host OS
 /etc/resolv.conf    /etc/resolv.conf    none    rw,bind     0   0
+# Add ca-certificate.crt so that it is always updated from the host OS
+/etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt	none	rw,bind   0	0

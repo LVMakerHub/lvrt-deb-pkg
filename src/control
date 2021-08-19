@@ -3,8 +3,8 @@ Version: VERSION
 Section: base
 Priority: optional
 Provides: lvrt-schroot
-Replaces: lvrt-schroot, lvrt19-schroot
-Conflicts: lvrt-schroot, lvrt19-schroot
+Replaces: lvrt-schroot, lvrt19-schroot, lvrt20-schroot
+Conflicts: lvrt-schroot, lvrt19-schroot, lvrt20-schroot
 Architecture: armhf
 Depends: schroot, python, avahi-daemon, dh-systemd (>= 1.5)
 Maintainer: LabVIEWMakerHub Administrator <admin@labviewmakerhub.com>
