@@ -1,26 +1,43 @@
 #!/bin/bash
 set -e
 
+LVRT_PKG=lvrt20-schroot
+TMP_DIR=./tmp
+MNT_DIR=./mnt
+
 # Make sure inputs are correct
 if [ $# -lt 1 ]; then
 	echo "Usage: $0 IMAGE_FILE [LVRT_DEB_FILE]"
 	exit 1
 fi
-IMAGE_FILE=$1
+
+# Parse command line args
+MOUNT_ONLY=0
+UMOUNT_ONLY=0
+if [ $1 = "-m" ]; then
+	MOUNT_ONLY=1
+	IMAGE_FILE=$2
+elif [ $1 = "-u" ]; then
+	UMOUNT_ONLY=1
+	IMAGE_FILE=$2
+else
+	IMAGE_FILE=$1
+fi
+
 DEB_FILE=""
 DEB_PATH=""
-if [ $# -eq 2 ]; then
+if [[ $# -eq 3 && ( $MOUNT_ONLY -eq 1 || $UMOUNT_ONLY -eq 1 ) ]]; then
+	DEB_PATH=$3
+	DEB_FILE=$(basename $3)
+elif [[ $# -eq 2 && $MOUNT_ONLY -eq 0 && $UMOUNT_ONLY -eq 0 ]]; then
 	DEB_PATH=$2
 	DEB_FILE=$(basename $2)
 fi
 
-LVRT_PKG=lvrt20-schroot
-TMP_DIR=./tmp
-mkdir -p $TMP_DIR
-MNT_DIR=$TMP_DIR/mnt
-mkdir -p $MNT_DIR
-
 OUTPUT_ZIP_FILE=$LVRT_PKG"-"$(basename $IMAGE_FILE)
+if [[ $IMAGE_FILE == *.xz ]]; then
+	OUTPUT_ZIP_FILE="${OUTPUT_ZIP_FILE%.*}"".zip"
+fi
 
 # Make sure the required tools are installed
 function missing_pkgs() {
@@ -28,51 +45,98 @@ function missing_pkgs() {
 	echo "Install with 'sudo apt install qemu qemu-user-static binfmt-support systemd-container'"
 }
 
-if ! which qemu-arm-static > /dev/null; then
-	missing_pkgs
-	exit 1
-fi
-if ! which update-binfmts > /dev/null; then
-        missing_pkgs
-        exit 1
-fi
-if ! which systemd-nspawn > /dev/null; then
-        missing_pkgs
-        exit 1
+function reset_image_file_var() {
+	IMAGE_FILE=`ls $TMP_DIR | grep -e \.img$`
+}
+
+LOOP_FILE=""
+LOOP_PART_FILE=""
+function set_loop_vars() {
+	LOOP_FILE=`losetup -f -P --show $TMP_DIR/$IMAGE_FILE`
+	LOOP_PART_FILE=$LOOP_FILE"p2"
+	if [ ! -e $LOOP_PART_FILE ]; then
+		LOOP_PART_FILE=$LOOP_FILE"p1"
+	fi
+}
+
+function mount_image() {
+	mkdir -p $TMP_DIR
+	mkdir -p $MNT_DIR
+
+	if ! which qemu-arm-static > /dev/null; then
+		missing_pkgs
+		exit 1
+	fi
+	if ! which update-binfmts > /dev/null; then
+		missing_pkgs
+		exit 1
+	fi
+	if ! which systemd-nspawn > /dev/null; then
+		missing_pkgs
+		exit 1
+	fi
+
+	# unpack image
+	if [[ $IMAGE_FILE == *.zip ]]; then
+		echo "Unzipping $IMAGE_FILE"
+		unzip $IMAGE_FILE -d $TMP_DIR
+	elif [[ $IMAGE_FILE == *.xz ]]; then
+		echo "Un-xzing $IMAGE_FILE"
+		cp $IMAGE_FILE $TMP_DIR/.
+		xz -d $TMP_DIR/$(basename $IMAGE_FILE)
+		# xz will delete the archive after decompressing
+	fi
+	reset_image_file_var
+
+	# mount image
+	echo "Mounting image..."
+	set_loop_vars
+	echo $LOOP_FILE
+	if [ -e $LOOP_PART_FILE ]; then
+		# rootfs should be in the second partition - in RPi case
+		echo $LOOP_PART_FILE
+		mount $LOOP_PART_FILE -o rw $MNT_DIR
+	else
+		# there's only 1 partition - probably a BBB
+		echo $LOOP_PART_FILE
+		mount $LOOP_PART_FILE -o rw $MNT_DIR
+	fi
+}
+
+function umount_image() {
+	# unmount image file
+	echo "Unmounting image"
+	umount $MNT_DIR
+	losetup -d $LOOP_FILE
+
+	# zip it up
+	if [ $UMOUNT_ONLY -eq 0 ]; then
+		echo "Zipping output image file $OUTPUT_ZIP_FILE"
+		mv $TMP_DIR/$IMAGE_FILE .
+		zip $OUTPUT_ZIP_FILE $IMAGE_FILE
+	fi
+
+	# cleanup
+	echo "Cleaning up temporary files"
+	rm -r $MNT_DIR
+	rm -rf $TMP_DIR
+}
+
+if [ $UMOUNT_ONLY -eq 1 ]; then
+	reset_image_file_var
+	set_loop_vars
+	umount_image
+	exit
 fi
 
-# unpack image
-if [[ $IMAGE_FILE == *.zip ]]; then
-	echo "Unzipping $IMAGE_FILE"
-	unzip $IMAGE_FILE -d $TMP_DIR
-	IMAGE_FILE=`ls $TMP_DIR | grep -e \.img$`
-elif [[ $IMAGE_FILE == *.xz ]]; then
-	echo "Un-xzing $IMAGE_FILE"
-	cp $IMAGE_FILE $TMP_DIR/.
-	xz -d $TMP_DIR/$(basename $IMAGE_FILE)
-	# xz will delete the archive after decompressing
-	IMAGE_FILE=`ls $TMP_DIR | grep -e \.img$`
-	OUTPUT_ZIP_FILE="${OUTPUT_ZIP_FILE%.*}"".zip"
-fi
+mount_image
 
-# mount image
-echo "Mounting image..."
-LOOP_FILE=`losetup -f -P --show $TMP_DIR/$IMAGE_FILE`
-echo $LOOP_FILE
-LOOP_PART_FILE=$LOOP_FILE"p2"
-if [ -e $LOOP_PART_FILE ]; then
-	# rootfs should be in the second partition - in RPi case
-	echo $LOOP_PART_FILE
-	mount $LOOP_PART_FILE -o rw $MNT_DIR
-else
-	# there's only 1 partition - probably a BBB
-	LOOP_PART_FILE=$LOOP_FILE"p1"
-	echo $LOOP_PART_FILE
-	mount $LOOP_PART_FILE -o rw $MNT_DIR
+if [ $MOUNT_ONLY -eq 1 ]; then
+	exit
 fi
 
 # cp arm emulator to image
-echo "Adding ARM emaulator to image"
+echo "Adding ARM emulator to image"
 cp /usr/bin/qemu-arm-static $MNT_DIR/usr/bin/.
 
 # comment out ld.so.preload contents
@@ -150,18 +214,5 @@ if [ -f $RESOLV_PATH".hold" -o -L $RESOLV_PATH".hold" ]; then
 	mv $RESOLV_PATH".hold" $RESOLV_PATH
 fi
 
-# unmount image file
-echo "Unmounting image"
-umount $MNT_DIR
-losetup -d $LOOP_FILE
-
-# zip it up
-echo "Zipping output image file $OUTPUT_ZIP_FILE"
-mv $TMP_DIR/$IMAGE_FILE .
-zip $OUTPUT_ZIP_FILE $IMAGE_FILE
-
-# cleanup
-echo "Cleaning up temporary files"
-rm $IMAGE_FILE
-rm -rf $TMP_DIR
+umount_image
 
