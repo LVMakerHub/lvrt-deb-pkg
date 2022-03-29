@@ -54,7 +54,9 @@ LOOP_PART_FILE=""
 function set_loop_vars() {
 	LOOP_FILE=`losetup -f -P --show $TMP_DIR/$IMAGE_FILE`
 	LOOP_PART_FILE=$LOOP_FILE"p2"
-	if [ ! -e $LOOP_PART_FILE ]; then
+	if [ -e $LOOP_PART_FILE ]; then
+		LOOP_BOOT_PART_FILE=$LOOP_FILE"p1"
+	else
 		LOOP_PART_FILE=$LOOP_FILE"p1"
 	fi
 }
@@ -96,6 +98,9 @@ function mount_image() {
 		# rootfs should be in the second partition - in RPi case
 		echo $LOOP_PART_FILE
 		mount $LOOP_PART_FILE -o rw $MNT_DIR
+		# now mount the boot partition so we can enable hardware
+		echo $LOOP_BOOT_PART_FILE
+		mount $LOOP_BOOT_PART_FILE -o rw $MNT_DIR/boot
 	else
 		# there's only 1 partition - probably a BBB
 		echo $LOOP_PART_FILE
@@ -104,6 +109,12 @@ function mount_image() {
 }
 
 function umount_image() {
+	# unmount boot partition if it exists
+	if [ -e $LOOP_FILE"p2" ]; then
+		echo "Unmounting boot partition"
+		umount $MNT_DIR/boot
+	fi
+
 	# unmount image file
 	echo "Unmounting image"
 	umount $MNT_DIR
@@ -180,15 +191,14 @@ fi
 
 # Do RPi specific stuff (enable UART, I2C, SPI)
 # https://www.raspberrypi.org/forums/viewtopic.php?t=21632
-# TODO: The raspi-config script needs to access /boot/config.txt and possibly 
-#  other syscalls that are not accessible in the container
 if [ -x $MNT_DIR/usr/bin/raspi-config ]; then
 	echo "Setting Raspberry Pi specific configuration"
+	echo "WARNING: There will be expected errors involving syscalls and device-tree; it's safe to ignore these errors"
 	# 0 = true, 1 = false
 	systemd-nspawn -M rpi -D $MNT_DIR raspi-config nonint do_ssh 0
-	#systemd-nspawn -M rpi -D $MNT_DIR raspi-config nonint do_spi 0
-	#systemd-nspawn -M rpi -D $MNT_DIR raspi-config nonint do_i2c 0
-	#systemd-nspawn -M rpi -D $MNT_DIR raspi-config nonint do_serial 0
+	systemd-nspawn -M rpi -D $MNT_DIR raspi-config nonint do_spi 0
+	systemd-nspawn -M rpi -D $MNT_DIR raspi-config nonint do_i2c 0
+	systemd-nspawn -M rpi -D $MNT_DIR raspi-config nonint do_serial 0
 fi
 
 
