@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-LVRT_PKG=lvrt20-schroot
+LVRT_PKG=lvrt21-schroot
 TMP_DIR=./tmp
 MNT_DIR=./mnt
 
@@ -54,7 +54,9 @@ LOOP_PART_FILE=""
 function set_loop_vars() {
 	LOOP_FILE=`losetup -f -P --show $TMP_DIR/$IMAGE_FILE`
 	LOOP_PART_FILE=$LOOP_FILE"p2"
+	LOOP_BOOT_PART_FILE=""
 	if [ -e $LOOP_PART_FILE ]; then
+		echo "Setting LOOP_BOOT_PART_FILE"
 		LOOP_BOOT_PART_FILE=$LOOP_FILE"p1"
 	else
 		LOOP_PART_FILE=$LOOP_FILE"p1"
@@ -94,16 +96,15 @@ function mount_image() {
 	echo "Mounting image..."
 	set_loop_vars
 	echo $LOOP_FILE
-	if [ -e $LOOP_PART_FILE ]; then
+	echo $LOOP_PART_FILE
+	if [ $LOOP_BOOT_PART_FILE != "" ]; then
 		# rootfs should be in the second partition - in RPi case
-		echo $LOOP_PART_FILE
 		mount $LOOP_PART_FILE -o rw $MNT_DIR
 		# now mount the boot partition so we can enable hardware
 		echo $LOOP_BOOT_PART_FILE
 		mount $LOOP_BOOT_PART_FILE -o rw $MNT_DIR/boot
 	else
 		# there's only 1 partition - probably a BBB
-		echo $LOOP_PART_FILE
 		mount $LOOP_PART_FILE -o rw $MNT_DIR
 	fi
 }
