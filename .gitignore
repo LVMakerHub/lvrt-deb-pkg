@@ -1,4 +1,5 @@
 *.tar.*
 *.deb
+*.zip
 debian/
 lvrt*-schroot_*/
