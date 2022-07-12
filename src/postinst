@@ -21,12 +21,12 @@ AVAHISVC=/etc/avahi/services/lvrt.service
 ln -sf /usr/sbin/update-ca-certificates $CHROOTPATH/usr/bin/update-ca-certificates
 
 # make sure resolv.conf exists; this will make schroot able to bind mount to it
-rm -rf $CHROOTPATH/etc/resolv.conf
+rm -rf $CHROOTPATH/etc/resolv.conf 2>/dev/null
 touch $CHROOTPATH/etc/resolv.conf
 
 # make sure /etc/ssl/certs/ca-certificates.crt exists; this will make schroot able to bind mount to it
 mkdir -p -m755 $CHROOTPATH/etc/ssl/certs
-rm -rf $CHROOTPATH/etc/ssl/certs/ca-certificates.crt
+rm -rf $CHROOTPATH/etc/ssl/certs/ca-certificates.crt 2>/dev/null
 touch $CHROOTPATH/etc/ssl/certs/ca-certificates.crt
 
 if [ -e $CHROOTPATH$RPI2LINXPATH ]; then
