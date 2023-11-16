@@ -5,9 +5,9 @@
 # Primarily the purpose of this emaulator is to publish a web service to
 # reboot the target from the LabVIEW project.
 
-import BaseHTTPServer
-from SocketServer import ThreadingMixIn
-import urlparse
+import http.server
+from socketserver import ThreadingMixIn
+import urllib.parse
 import os
 import socket
 import threading
@@ -33,7 +33,7 @@ def getIP():
 		# localhost's IP was returned
 		# try an alternative approach
 		try:
-			ips = subprocess.check_output('hostname -I', shell=True)
+			ips = subprocess.check_output('hostname -I', shell=True).decode('utf-8')
 			if len(ips) != 0:
 				retVal = ips.strip().split()[0]
 			else:
@@ -45,8 +45,8 @@ def getIP():
 		# try an alternative that requires an internet connection
 		try:
 			s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-			s.connect(('8.8.8.8',80))
-			retVal = s.getsockname()[0]
+			s.connect((b'8.8.8.8',80))
+			retVal = s.getsockname()[0].decode('utf-8')
 			s.close()
 		except:
 			print('getIP() - 2nd try failed')
@@ -56,33 +56,33 @@ def getIP():
 def restartLV():
 	# Some early versions of systemd (v44) don't consistently restart
 	# services, so retry a few times if the restart fails.
-	print "Restarting LabVIEW now..."
+	print("Restarting LabVIEW now...")
 	retries = 0
 	while retries < RESTART_MAX_RETRIES:
 		retval = os.system("/bin/systemctl restart labview.service")
 		if retval == 0:
-			print "Restart successful"
+			print("Restart successful")
 			return
 		else:
 			retries = retries + 1
-			print "Restart failed; retry %d" % retries
+			print("Restart failed; retry %d" % retries)
 			time.sleep(RESTART_RETRY_DELAY)
 
-class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+class MyHandler(http.server.BaseHTTPRequestHandler):
 	def do_GET(s):
-		ppath = urlparse.urlparse(s.path)
-		query = urlparse.parse_qs(ppath.query)
+		ppath = urllib.parse.urlparse(s.path)
+		query = urllib.parse.parse_qs(ppath.query)
 		if s.path.find("National%20Instruments%2FWeb%20Servers%2FNI%20System%20Web%20Server%2Fhttp") >= 0:
 			# Service Locator for System Web Server; redirect to same port
 			s.send_response(200)
 			s.send_header("Content-type", "text/html")
 			s.end_headers()
-			s.wfile.write("Mapping=" + str(PORT_NUMBER) + "\r\n")
+			s.wfile.write(bytes("Mapping=" + str(PORT_NUMBER) + "\r\n", "utf-8"))
 		elif s.path.find("National%20Instruments%2FNI%2DRPC%2FInterface") >= 0:
 			s.send_response(200)
 			s.send_header("Content-type", "text/html")
 			s.end_headers()
-			s.wfile.write("Mapping=0\r\n")
+			s.wfile.write(bytes("Mapping=0\r\n", "utf-8"))
 		elif ppath.path == '/login' and 'username' in query:
 			# login challange
 			s.send_response(403)
@@ -94,14 +94,14 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			s.send_header("Content-type", "text/html")
 			s.send_header("Set-Cookie", "_appwebSessionId_=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT")
 			s.end_headers()
-			s.wfile.write("User admin logged out.")
+			s.wfile.write(bytes("User admin logged out.", "utf-8"))
 		elif s.path.find("deletetree") >= 0:
 			# call to service locator to remove a service
 			# this happens when LV daemon shuts down
 			# since the daemon might not be running when the 
 			# response is sent, just close the connection
-			print "GET deletetree received"
-			s.wfile.close()
+			print("GET deletetree received")
+			#s.wfile.close()
 		elif s.path.find("publish") >= 0:
 			# call to service locator to add a service
 			# this happens when LV daemon starts
@@ -111,16 +111,16 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			s.send_error(404)
 			
 	def do_POST(s):
-		ppath = urlparse.urlparse(s.path)
+		ppath = urllib.parse.urlparse(s.path)
 		length = int(s.headers['content-length'])
-		postvars = urlparse.parse_qs(s.rfile.read(length))
+		postvars = urllib.parse.parse_qs(s.rfile.read(length))
 		if ppath.path == '/login':
 			# actual login, happens after login challenge
 			s.send_response(200)
 			s.send_header("Content-type", "text/xml")
 			s.send_header("Set-Cookie", "_appwebSessionId_=Zoz4eDPybs#qoUb9za2m0Q!!; Path=/")
 			s.end_headers()
-			s.wfile.write(SYSAPI_RESPONSE_LOGIN)
+			s.wfile.write(bytes(SYSAPI_RESPONSE_LOGIN, "utf-8"))
 		elif ppath.path == '/rtexecsvc/RebootEx':
 			# reboot call
 			# there is form encoded data as part of this call
@@ -129,11 +129,10 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			s.send_response(202)
 			s.send_header("Content-type", "text/plain")
 			s.end_headers()
-			s.wfile.write("Rebooting in 0 seconds")
+			s.wfile.write(bytes("Rebooting in 0 seconds", "utf-8"))
 			# spawn a daemon thread to do the reboot so the
 			# HTTP Handler can send its response immediately
-			t = threading.Thread(target=restartLV)
-			t.setDaemon(True)
+			t = threading.Thread(target=restartLV, daemon=True)
 			t.start()
 		elif ppath.path == '/nisysapi/server':
 			# handle a request for system information
@@ -149,32 +148,32 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 			s.send_header("Content-type", "text/xml; charset=utf-8")
 			s.send_header("Cache-Control", "no-cache")
 			s.send_header("Connection", "Keep-Alive")
-			if postvars['Function'][0] == 'SearchForItemsAndProperties':
+			if postvars[b'Function'][0] == b'SearchForItemsAndProperties':
 				ipAddr = getIP()
 				hostname = socket.gethostname()
 				respWithHostName = SYSAPI_RESPONSE_SEARCH_PROPERTIES % (ipAddr, hostname)
-				s.send_header("Content-Length", str(len(respWithHostName)))
+				s.send_header("Content-Length", str(len(bytes(respWithHostName, "utf-8"))))
 				s.end_headers()
-				s.wfile.write(respWithHostName)
-			elif postvars['Function'][0] == 'EnumSystemExperts':
-				s.send_header("Content-Length", str(len(SYSAPI_RESPONSE_ENUM_EXPERTS)))
+				s.wfile.write(bytes(respWithHostName, "utf-8"))
+			elif postvars[b'Function'][0] == b'EnumSystemExperts':
+				s.send_header("Content-Length", str(len(bytes(SYSAPI_RESPONSE_ENUM_EXPERTS, "utf-8"))))
 				s.end_headers()
-				s.wfile.write(SYSAPI_RESPONSE_ENUM_EXPERTS)
+				s.wfile.write(bytes(SYSAPI_RESPONSE_ENUM_EXPERTS, "utf-8"))
 			else:
-				print "Unknown SysAPI Function request received"
-				print postvars
+				print("Unknown SysAPI Function request received")
+				print(postvars)
 				s.send_error(404)
 		else:
-			print "Unknown command received"
+			print("Unknown command received")
 			s.send_error(404)
 
-class ThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
+class ThreadedHTTPServer(ThreadingMixIn, http.server.HTTPServer):
 	""" Handle requests in a separate thread. """
 
 if __name__ == '__main__':
 	httpd = ThreadedHTTPServer((HOST_NAME, PORT_NUMBER), MyHandler)
 	try:
-		print "Starting NISysServer..."
+		print("Starting NISysServer...")
 		httpd.serve_forever()
 	except KeyboardInterrupt:
 		pass
