@@ -7,6 +7,8 @@ CHROOTPATH=/srv/chroot/labview
 
 RPI2LINX=liblinxdevice_rpi2.so
 RPI2LINXPATH=/usr/lib/$RPI2LINX
+RPI5LINX=liblinxdevice_rpi5.so
+RPI5LINXPATH=/usr/lib/$RPI5LINX
 
 BBLINX=liblinxdevice_bbb.so
 BBLINXPATH=/usr/lib/$BBLINX
@@ -30,21 +32,35 @@ rm -rf $CHROOTPATH/etc/ssl/certs/ca-certificates.crt 2>/dev/null
 touch $CHROOTPATH/etc/ssl/certs/ca-certificates.crt
 
 if [ -e $CHROOTPATH$RPI2LINXPATH ]; then
-	# Raspberry Pi 2
+	# Raspberry Pi 2,3,4, or 5
 	# cat /proc/cpuinfo | grep BCM2709 > /dev/null && :
 	# test -e /sys/firmware/devicetree/base/model && cat /sys/firmware/devicetree/base/model | 
 	#    sed -e 's, Model.*,\n,' -e 's, Rev.*,\n,' | grep 'Raspberry Pi [234]' > /dev/null && :
 	if [ -e /usr/bin/raspi-config ]; then
-		# Create symlink to correct liblinxdevice.so
-		ln -sf $RPI2LINX $LINXPATH
-		chmod 0755 $LINXPATH
+		# Detect the RPi hardware model
+		MODEL=$(tr -d '\0' </sys/firmware/devicetree/base/model)
+
+		# Create symlink to correct binaries
+		case "$MODEL" in
+			*"Raspberry Pi 5"*)
+				ln -sf $RPI5LINX $LINXPATH
+				chmod 0755 $LINXPATH
+				test -x $CHROOTPATH/$USRBINPATH/linxtcpserver-rpi5 && ln -sf linxtcpserver-rpi5 $CHROOTPATH/$USRBINPATH/linxtcpserver
+				test -x $CHROOTPATH/$USRBINPATH/linxserialserver-rpi5 && ln -sf linxserialserver-rpi5 $CHROOTPATH/$USRBINPATH/linxserialserver
+				test -x $CHROOTPATH/$USRBINPATH/linxioserver-rpi5 && ln -sf linxioserver-rpi5 $CHROOTPATH/$USRBINPATH/linxioserver
+				;;
+			*)
+				ln -sf $RPI2LINX $LINXPATH
+				chmod 0755 $LINXPATH
+				test -x $CHROOTPATH/$USRBINPATH/linxtcpserver-rpi2 && ln -sf linxtcpserver-rpi2 $CHROOTPATH/$USRBINPATH/linxtcpserver
+				test -x $CHROOTPATH/$USRBINPATH/linxserialserver-rpi2 && ln -sf linxserialserver-rpi2 $CHROOTPATH/$USRBINPATH/linxserialserver
+				test -x $CHROOTPATH/$USRBINPATH/linxioserver-rpi2 && ln -sf linxioserver-rpi2 $CHROOTPATH/$USRBINPATH/linxioserver
+				;;
+		esac
+
 		# Add Avahi service for LV daemon
 		echo $PREAMBLE > $AVAHISVC
 		printf "$FMTSTR" "RPi2" >> $AVAHISVC
-
-		test -x $CHROOTPATH/$USRBINPATH/linxtcpserver-rpi && ln -sf linxtcpserver-rpi $CHROOTPATH/$USRBINPATH/linxtcpserver
-		test -x $CHROOTPATH/$USRBINPATH/linxserialserver-rpi && ln -sf linxserialserver-rpi $CHROOTPATH/$USRBINPATH/linxserialserver
-		test -x $CHROOTPATH/$USRBINPATH/linxioserver-rpi && ln -sf linxioserver-rpi $CHROOTPATH/$USRBINPATH/linxioserver
 	fi
 fi
 
