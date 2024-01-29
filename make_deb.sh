@@ -18,7 +18,7 @@ fi
 
 PKG_NAME=lvrt24-schroot
 PKG_VER=24.1.0
-PKG_REV=1
+PKG_REV=2
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 REPO_DIR=debian
 
