@@ -3,10 +3,10 @@ Version: VERSION
 Section: base
 Priority: optional
 Provides: lvrt-schroot
-Replaces: lvrt-schroot, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot
-Conflicts: lvrt-schroot, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot
+Replaces: lvrt-schroot, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot
+Conflicts: lvrt-schroot, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot
 Architecture: armhf
-Depends: schroot, python3, avahi-daemon, debhelper
+Depends: schroot, python3, avahi-daemon
 Maintainer: LabVIEWMakerHub Administrator <admin@labviewmakerhub.com>
 Description: LabVIEW run-time schroot
  A schroot environment to allow the softfp LabVIEW run-time to run on a hardfp
