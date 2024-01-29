@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-LVRT_PKG=lvrt23-schroot
+LVRT_PKG=lvrt24-schroot
 TMP_DIR=./tmp
 MNT_DIR=./mnt
 
