@@ -16,8 +16,8 @@ if [ ! -f "$IMAGE_TAR" ]; then
 	exit 1
 fi
 
-PKG_NAME=lvrt24-schroot
-PKG_VER=24.1.0
+PKG_NAME=lvrt25-schroot
+PKG_VER=25.1.0
 PKG_REV=2
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 REPO_DIR=debian
@@ -81,20 +81,30 @@ fi
 mkdir $CHROOT_DIR/root
 rm -r $CHROOT_DIR/home/root
 
-# Create control file and maintainer scripts
-mkdir $PKG_DIR/DEBIAN
-sed -e 's/VERSION/'$PKG_VER-$PKG_REV'/' -e 's/lvrt-schroot/'$PKG_NAME'/' src/control > $PKG_DIR/DEBIAN/control
-cp src/post* $PKG_DIR/DEBIAN/.
-cp src/pre* $PKG_DIR/DEBIAN/.
+function create_package() {
+	# Create control file and maintainer scripts
+	mkdir $PKG_DIR/DEBIAN
+	sed -e 's/VERSION/'$PKG_VER-$PKG_REV'/' -e 's/NAME/'$PKG_NAME'/'  -e 's/ARCH/'$1'/' src/control > $PKG_DIR/DEBIAN/control
+	cp src/post* $PKG_DIR/DEBIAN/.
+	cp src/pre* $PKG_DIR/DEBIAN/.
 
-# Create the package
-dpkg-deb -Zgzip --build $PKG_DIR
+	# Create the package
+	PACKAGE_FILE="${PKG_NAME}_${PKG_VER}-${PKG_REV}_$1.deb"
+	dpkg-deb -Zgzip --build $PKG_DIR "$PACKAGE_FILE"
+
+	# Cleanup
+	rm -rf $PKG_DIR/DEBIAN
+}
+
+# Create packages for both 32-bit and 64-bit architectures
+create_package "armhf"
+create_package "arm64"
 
 # Create the repo
 mkdir -p $REPO_DIR/binary
-cp $PKG_DIR.deb $REPO_DIR/binary/.
+cp $PKG_DIR_*.deb $REPO_DIR/binary/.
 cd $REPO_DIR
-sudo dpkg-scanpackages binary /dev/null > binary/Packages
+sudo dpkg-scanpackages -m binary /dev/null > binary/Packages
 sudo chown $USER binary/Packages
 cd binary
 rm -f Packages.gz

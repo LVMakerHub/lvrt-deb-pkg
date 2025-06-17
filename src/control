@@ -1,11 +1,11 @@
-Package: lvrt-schroot
+Package: NAME
 Version: VERSION
 Section: base
 Priority: optional
-Provides: lvrt-schroot
-Replaces: lvrt-schroot, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot
-Conflicts: lvrt-schroot, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot
-Architecture: armhf
+Provides: NAME
+Replaces: NAME, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot, lvrt24-schroot
+Conflicts: NAME, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot, lvrt24-schroot
+Architecture: ARCH
 Depends: schroot, python3, avahi-daemon
 Maintainer: LabVIEWMakerHub Administrator <admin@labviewmakerhub.com>
 Description: LabVIEW run-time schroot
