@@ -16,9 +16,9 @@ if [ ! -f "$IMAGE_TAR" ]; then
 	exit 1
 fi
 
-PKG_NAME=lvrt25-schroot
-PKG_VER=25.1.0
-PKG_REV=2
+PKG_NAME=lvrt26-schroot
+PKG_VER=26.1.0
+PKG_REV=1
 PKG_DIR=$PKG_NAME\_$PKG_VER-$PKG_REV
 REPO_DIR=debian
 
