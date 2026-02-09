@@ -3,8 +3,8 @@ Version: VERSION
 Section: base
 Priority: optional
 Provides: NAME
-Replaces: NAME, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot, lvrt24-schroot
-Conflicts: NAME, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot, lvrt24-schroot
+Replaces: NAME, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot, lvrt24-schroot, lvrt25-schroot
+Conflicts: NAME, lvrt19-schroot, lvrt20-schroot, lvrt21-schroot, lvrt22-schroot, lvrt23-schroot, lvrt24-schroot, lvrt25-schroot
 Architecture: ARCH
 Depends: schroot, python3, avahi-daemon
 Maintainer: LabVIEWMakerHub Administrator <admin@labviewmakerhub.com>
